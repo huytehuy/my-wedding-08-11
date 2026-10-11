@@ -108,6 +108,21 @@ img.el {
 .intro--2 { animation-delay: 1.6s; }
 @keyframes introFade { from { opacity: 0; } to { opacity: 1; } }
 
+/* Chú thích bấm mở thiệp */
+.hero-hint {
+  margin: 0;
+  color: var(--cream);
+  font-family: "TH Sarabun New", sans-serif;
+  font-size: 19px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-align: center;
+  animation: introFade 1s 2.6s both, hintBlink 2.2s 3.6s ease-in-out infinite;
+  transition: opacity .4s;
+}
+@keyframes hintBlink { 50% { opacity: .45; } }
+:host(.is-open) .hero-hint { animation: none; opacity: 0; }
+
 /* Phong bì: thân + phần trong + nắp (lật mở) + con dấu */
 .c-envelope {
   z-index: 1;
@@ -247,19 +262,13 @@ img.el {
   min-height: 100vh;
   min-height: 100svh;
   justify-content: center;
-  /* chừa chỗ cho phong bì + nắp khi mở */
-  padding-top: 24px;
-  padding-bottom: calc(var(--env-m) * .8);
+  gap: 28px;
+  padding: 32px var(--gutter);
   overflow: hidden;
 }
-.slide--hero .c-envelope {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: var(--env-m);
-  translate: -50% 10%;
-}
-:host(.is-open) .slide--hero .env { translate: 0 16%; }
+.slide--hero .c-envelope { width: var(--env-m); }
+/* Phong bì hạ xuống khi nắp mở, rồi trang tự cuộn sang trang 2 */
+:host(.is-open) .slide--hero .env { translate: 0 30%; }
 
 .slide--couple {
   flex-direction: row;
@@ -269,13 +278,13 @@ img.el {
   container-type: inline-size;
 }
 .c-frame { width: 88%; }
-.c-name { width: 40%; margin: -4% 0 -6%; }
+.c-name { width: 40%; margin: 2% 0 -4%; }
 .c-name--groom { order: 1; }
 .c-name--bride { order: 3; }
 /* "&" cùng cỡ với tên: tên = 33.7% bề rộng khối, khối = 40% hàng */
 .couple-amp {
   order: 2;
-  margin: -4% 0 -6%;
+  margin: 2% 0 -4%;
   padding: 0 2cqw;
   color: var(--cream);
   font-size: 13.5cqw;
@@ -303,6 +312,7 @@ img.el {
     margin: 0 auto;
     padding: 0;
     overflow: hidden;
+    container-type: inline-size;
   }
   .slide > .cmp {
     position: absolute;
@@ -316,6 +326,15 @@ img.el {
     min-height: 0;
   }
   :host(.is-open) .slide--hero .env { translate: 0 40%; }
+  .hero-hint {
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    bottom: 3%;
+    color: var(--wine);
+    font-size: 1.6cqw;
+  }
   .c-quote { display: block; }
   .quote-m { display: none; }
   .couple-amp { display: none; }

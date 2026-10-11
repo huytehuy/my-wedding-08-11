@@ -79,9 +79,14 @@ export class Invite {
     });
   }
 
-  /** Bấm vào phong bì: con dấu bật ra, nắp lật mở */
+  /** Bấm vào phong bì: con dấu bật ra, nắp lật mở, rồi tự cuộn sang trang 2 */
   protected open(): void {
     this.opened.set(true);
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setTimeout(
+      () => this.host.querySelector('.slide--story')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' }),
+      reduceMotion ? 0 : 1700,
+    );
   }
 
   protected view(file: string): void {

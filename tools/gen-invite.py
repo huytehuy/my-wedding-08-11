@@ -239,6 +239,8 @@ for i, (key, label, cmps) in enumerate(slides, 1):
     out.append('  <section class="slide slide--%s">' % key)
     for c in cmps:
         out.append(render_cmp(c))
+    if key == 'hero':
+        out.append('    <p class="hero-hint">Chạm vào con dấu để mở thiệp</p>')
     if key == 'couple':
         # Điện thoại: tên nằm dưới khung ảnh thành 1 hàng "Bảo & Hương"
         out.append('    <span class="couple-amp hand" aria-hidden="true" data-reveal="up" style="--d:.3s">&amp;</span>')
