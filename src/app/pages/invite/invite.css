@@ -242,7 +242,8 @@ img.el {
    Điện thoại: thứ tự & kích thước khối
    ====================================================== */
 .slide--hero {
-  --env-m: min(112vw, 560px, 62svh);
+  /* phong bì xoay -6.64° nên bề ngang thực ~1.07 lần -> 88vw vẫn nằm gọn trong màn hình */
+  --env-m: min(88vw, 520px, 58svh);
   min-height: 100vh;
   min-height: 100svh;
   justify-content: center;
@@ -265,9 +266,21 @@ img.el {
   flex-wrap: wrap;
   justify-content: center;
   gap: 0;
+  container-type: inline-size;
 }
 .c-frame { width: 88%; }
-.c-name { width: 48%; margin: -4% 0 -6%; }
+.c-name { width: 40%; margin: -4% 0 -6%; }
+.c-name--groom { order: 1; }
+.c-name--bride { order: 3; }
+/* "&" cùng cỡ với tên: tên = 33.7% bề rộng khối, khối = 40% hàng */
+.couple-amp {
+  order: 2;
+  margin: -4% 0 -6%;
+  padding: 0 2cqw;
+  color: var(--cream);
+  font-size: 13.5cqw;
+  line-height: 18.9cqw;
+}
 
 .c-time-info { width: min(84%, 360px); }
 
@@ -305,6 +318,7 @@ img.el {
   :host(.is-open) .slide--hero .env { translate: 0 40%; }
   .c-quote { display: block; }
   .quote-m { display: none; }
+  .couple-amp { display: none; }
 }
 
 /* ---------- Bấm ảnh để xem lớn ---------- */

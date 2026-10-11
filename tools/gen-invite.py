@@ -229,7 +229,7 @@ slides.append(('thanks', 'Cảm ơn', [
 ]))
 
 out = ['<!-- File này được sinh từ toạ độ trong pptx (xem README). Mỗi <section> là một slide. -->',
-       '<audio #bgm src="assets/audio/music.m4a" loop preload="auto" (play)="playing.set(true)" (pause)="playing.set(false)"></audio>',
+       '<audio #bgm src="assets/audio/music.m4a" loop preload="auto" (play)="onAudioEvent()" (pause)="onAudioEvent()" (volumechange)="onAudioEvent()"></audio>',
        '<button class="music" type="button" aria-label="Bật/tắt nhạc" [class.is-playing]="playing()" (click)="toggleMusic()">',
        '  <img src="assets/img/vinyl.webp" alt="" />',
        '</button>',
@@ -239,6 +239,9 @@ for i, (key, label, cmps) in enumerate(slides, 1):
     out.append('  <section class="slide slide--%s">' % key)
     for c in cmps:
         out.append(render_cmp(c))
+    if key == 'couple':
+        # Điện thoại: tên nằm dưới khung ảnh thành 1 hàng "Bảo & Hương"
+        out.append('    <span class="couple-amp hand" aria-hidden="true" data-reveal="up" style="--d:.3s">&amp;</span>')
     if key == 'quote':
         # Điện thoại: slide ngang quá nhỏ để đọc, nên xếp tấm vé dọc với cùng ảnh & chữ
         out.append('    <div class="quote-m">')

@@ -1,5 +1,5 @@
 <!-- File này được sinh từ toạ độ trong pptx (xem README). Mỗi <section> là một slide. -->
-<audio #bgm src="assets/audio/music.m4a" loop preload="auto" (play)="playing.set(true)" (pause)="playing.set(false)"></audio>
+<audio #bgm src="assets/audio/music.m4a" loop preload="auto" (play)="onAudioEvent()" (pause)="onAudioEvent()" (volumechange)="onAudioEvent()"></audio>
 <button class="music" type="button" aria-label="Bật/tắt nhạc" [class.is-playing]="playing()" (click)="toggleMusic()">
   <img src="assets/img/vinyl.webp" alt="" />
 </button>
@@ -66,6 +66,7 @@
     <div class="cmp c-name c-name--bride" style="--x:67.18;--y:36.47;--w:33.47;--ar:2.452">
       <p class="el t t--c hand" style="--x:0;--y:0;--w:100;--d:0.35s;--fs:30.22;--lh:42.308;--ls:0" data-reveal="up"><span class="ln">{{ w.bride }}</span></p>
     </div>
+    <span class="couple-amp hand" aria-hidden="true" data-reveal="up" style="--d:.3s">&amp;</span>
   </section>
 
   <!-- 5 · Trân trọng kính mời -->

@@ -4,7 +4,7 @@ Thiệp mời cưới online viết bằng Angular, dựng lại y như thiệp 
 
 - Máy tính: mỗi slide là một khung 16:9 giống hệt slide.
 - Điện thoại: các khối của slide xếp dọc, bố cục bên trong mỗi khối vẫn giữ như slide.
-- Bấm con dấu để mở nắp phong bì; bấm đĩa góc dưới bên phải để bật/tắt nhạc; bấm ảnh để xem lớn.
+- Bấm con dấu để mở nắp phong bì; nhạc phát khi lướt tới trang 2 (đĩa than); bấm đĩa góc dưới bên phải để bật/tắt nhạc; bấm ảnh để xem lớn.
 
 | Đường dẫn | Dùng để |
 |---|---|
