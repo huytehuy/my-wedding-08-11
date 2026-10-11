@@ -1,6 +1,10 @@
 # Thiệp cưới Bảo & Hương · 08.11.2026
 
-Thiệp mời cưới online viết bằng Angular, dựng lại từ thiệp PowerPoint thành trang cuộn có hiệu ứng.
+Thiệp mời cưới online viết bằng Angular, dựng lại y như thiệp PowerPoint (toạ độ, cách cắt ảnh, cỡ chữ và font lấy thẳng từ file pptx), dạng trang cuộn.
+
+- Máy tính: mỗi slide là một khung 16:9 giống hệt slide.
+- Điện thoại: các khối của slide xếp dọc, bố cục bên trong mỗi khối vẫn giữ như slide.
+- Bấm con dấu để mở nắp phong bì; bấm đĩa góc dưới bên phải để bật/tắt nhạc; bấm ảnh để xem lớn.
 
 | Đường dẫn | Dùng để |
 |---|---|
@@ -12,6 +16,13 @@ Thiệp mời cưới online viết bằng Angular, dựng lại từ thiệp Po
 - Chữ trên thiệp (tên, ngày giờ, địa điểm, bố mẹ hai bên): `src/app/wedding.config.ts`
 - Ảnh: `public/assets/img/` (thay file cùng tên là xong)
 - Nhạc nền: `public/assets/audio/music.m4a`
+- Font (tách từ pptx): `public/assets/fonts/`
+- Vị trí các phần tử: `tools/gen-invite.py` chứa toạ độ lấy từ pptx và sinh ra
+  `src/app/pages/invite/invite.html`. Sửa toạ độ thì chạy lại:
+
+  ```bash
+  python tools/gen-invite.py src/app/pages/invite/invite.html
+  ```
 
 ## Chạy trên máy
 
@@ -31,7 +42,7 @@ src/app/
   wedding.config.ts          thông tin đám cưới
   guest-link.ts              tạo link / làm sạch tên khách
   shared/reveal.directive.ts hiệu ứng hiện dần khi cuộn ([data-reveal])
-  pages/invite/              trang thiệp (/)
+  pages/invite/              trang thiệp (/) — invite.html sinh từ tools/gen-invite.py
   pages/generator/           trang tạo link (/tao-link)
 public/assets/               ảnh, nhạc
 vercel.json                  cấu hình deploy (SPA rewrite cho /tao-link)

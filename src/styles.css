@@ -1,4 +1,12 @@
 /* ============ Style dùng chung cho toàn trang ============ */
+
+/* Font lấy từ chính file pptx (ppt/fonts) để chữ y như slide */
+@font-face { font-family: "Ballet"; src: url(/assets/fonts/ballet.woff2) format("woff2"); font-display: swap; }
+@font-face { font-family: "Dancing Script"; src: url(/assets/fonts/dancing-script.woff2) format("woff2"); font-display: swap; }
+@font-face { font-family: "TH Sarabun New"; src: url(/assets/fonts/th-sarabun-new.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "TH Sarabun New"; src: url(/assets/fonts/th-sarabun-new-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "TH Sarabun New"; src: url(/assets/fonts/th-sarabun-new-bold.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+
 :root {
   --bg: #591707;
   --bg-deep: #3c0e03;
@@ -11,28 +19,17 @@
   --line: #ead9c6;
   --ease: cubic-bezier(.2, .7, .2, 1);
   --gutter: 20px;
-  --env: min(128vw, 720px, 100svh);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(120% 70% at 50% 0%, #6b200d 0%, transparent 60%),
-    radial-gradient(100% 60% at 50% 100%, #4a1205 0%, transparent 70%),
-    var(--bg);
-  background-attachment: fixed;
+  background: var(--bg);
   color: var(--cream);
-  font-family: "Sarabun", "Th Sarabun New", system-ui, sans-serif;
+  font-family: "TH Sarabun New", system-ui, sans-serif;
   font-weight: 300;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-}
-/* Trang thiệp khoá cuộn cho tới khi khách mở phong bì */
-body.is-locked { overflow: hidden; }
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
 }

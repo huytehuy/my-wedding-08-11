@@ -1,188 +1,145 @@
-<!-- Lấp lánh nền -->
-<div class="sparkles" aria-hidden="true">
-  @for (s of sparkles; track $index) {
-    <i [style]="s"></i>
-  }
-</div>
-
-<!-- Nút nhạc -->
-@if (opened()) {
-  <button class="music" type="button" aria-label="Bật/tắt nhạc" [class.is-playing]="playing()" (click)="toggleMusic()">
-    <img src="assets/img/vinyl.webp" alt="" />
-    <span class="music__note" aria-hidden="true">♪</span>
-  </button>
-}
-<audio #bgm src="assets/audio/music.m4a" loop preload="metadata" (play)="playing.set(true)" (pause)="playing.set(false)"></audio>
+<!-- File này được sinh từ toạ độ trong pptx (xem README). Mỗi <section> là một slide. -->
+<audio #bgm src="assets/audio/music.m4a" loop preload="auto" (play)="playing.set(true)" (pause)="playing.set(false)"></audio>
+<button class="music" type="button" aria-label="Bật/tắt nhạc" [class.is-playing]="playing()" (click)="toggleMusic()">
+  <img src="assets/img/vinyl.webp" alt="" />
+</button>
 
 <main>
-  <!-- 1 · BÌA + PHONG BÌ -->
-  <section class="hero" id="top" #hero>
-    <div class="hero__head">
-      <h1 class="script hero__title"><span class="write">Lễ thành hôn</span></h1>
-      <div class="date-oval intro intro--zoom" style="--d: 1.3s">
-        <img src="assets/img/date-oval.webp" alt="" />
-        <span>{{ w.dateText }}</span>
-      </div>
-      <p class="hero__names intro" style="--d: 1.6s">{{ w.groom }} &amp; {{ w.bride }}</p>
+  <!-- 1 · Bìa -->
+  <section class="slide slide--hero">
+    <div class="cmp c-head" style="--x:18.54;--y:9.19;--w:62.92;--ar:2.442">
+      <p class="el t t--c script hero__title" style="--x:0;--y:0;--w:100;--fs:16.738;--lh:23.433;--ls:0" ><span class="ln"><span class="write">Lễ thành hôn</span></span></p>
+      <img class="el intro intro--1" src="assets/img/date-oval.webp" alt="" style="--x:37.381;--y:46.344;--w:23.125;--h:17.551"  />
+      <p class="el t t--c intro intro--1" style="--x:37.142;--y:45.711;--w:23.617;--fs:5.372;--lh:7.521;--ls:0" ><span class="ln">{{ w.dateText }}</span></p>
+      <p class="el t t--c intro intro--2" style="--x:24.682;--y:66.034;--w:50.652;--fs:7.348;--lh:7.202;--ls:0.382" ><span class="ln">{{ w.groom | uppercase }} &amp; {{ w.bride | uppercase }}</span></p>
     </div>
-
-    <button class="envelope" type="button" aria-label="Mở thiệp mời" (click)="open()">
-      <span class="envelope__tilt">
-        <img class="envelope__img" src="assets/img/envelope.webp" alt="" />
-        <span class="envelope__to">
-          <small>Kính gửi</small>
-          <strong>{{ guest }}</strong>
+    <div class="cmp c-envelope" style="--x:29.43;--y:58.53;--w:39.82;--ar:1.499;--r:-6.64deg">
+      <button class="env" type="button" aria-label="Mở thiệp" (click)="open()" [disabled]="opened()">
+        <img class="env__body" src="assets/img/envelope-body.webp" alt="" />
+        <span class="env__inside" aria-hidden="true"></span>
+        <span class="env__flap" aria-hidden="true">
+          <img class="env__flap-front" src="assets/img/envelope.webp" alt="" />
+          <span class="env__flap-back"></span>
         </span>
-        <span class="envelope__seal" aria-hidden="true" #seal></span>
-      </span>
-    </button>
-    <p class="hero__hint">Chạm vào con dấu để mở thiệp</p>
-
-    @for (b of bursts(); track b.id) {
-      <span class="burst" [style]="b.style"></span>
-    }
-
-    <a class="scroll-cue" href="#story" aria-label="Cuộn xuống" (click)="scrollTo($event, 'story')">
-      <span>Cuộn xuống</span>
-      <i aria-hidden="true"></i>
-    </a>
-  </section>
-
-  <!-- 2 · CÂU CHUYỆN -->
-  <section class="story" id="story">
-    <div class="story__text">
-      <p class="caps" data-reveal="up">Năm ấy, lần đầu tiên chúng ta gặp nhau<br />và viết nên câu chuyện tình đẹp</p>
-      <img class="story__wave" src="assets/img/waveform.gif" alt="" data-reveal="fade" style="--d: 0.3s" />
-    </div>
-    <div class="record" data-reveal="zoom">
-      <img class="record__vinyl" src="assets/img/vinyl.webp" alt="" />
-      <div class="record__sleeve">
-        <img class="record__paper" src="assets/img/record-sleeve.webp" alt="" />
-        <img class="record__photo" src="assets/img/photo-story.webp" [alt]="'Ảnh cưới ' + w.groom + ' và ' + w.bride" loading="lazy" />
-      </div>
+        <img class="env__seal" src="assets/img/envelope.webp" alt="" />
+      </button>
     </div>
   </section>
 
-  <!-- 3 · LỜI NHẮN -->
-  <section class="quote">
-    <div class="quote__card">
-      <img class="quote__bow" src="assets/img/bow.webp" alt="" data-reveal="down" style="--d: 0.35s" />
-      <blockquote class="ticket" data-reveal="zoom">
-        <p>
-          Chỉ cần là đúng người, muộn một chút cũng không sao. Thật may mắn vì chúng ta đã tìm thấy nhau vào
-          những tháng năm rực rỡ nhất. Cảm ơn bạn vì đã luôn ở đây, đồng hành và minh chứng cho tình yêu của
-          chúng mình.
-        </p>
-      </blockquote>
-      <img class="quote__rose" src="assets/img/rose.webp" alt="" data-reveal="rose" style="--d: 0.5s" />
+  <!-- 2 · Câu chuyện -->
+  <section class="slide slide--story">
+    <div class="cmp c-story-text" style="--x:4.41;--y:40.17;--w:31.12;--ar:2.782">
+      <p class="el t t--c" style="--x:0;--y:0;--w:100;--fs:5.775;--lh:5.371;--ls:0.524" data-reveal="up"><span class="ln">NĂM ẤY, LẦN ĐẦU TIÊN CHÚNG TA GẶP NHAU</span><span class="ln">VÀ VIẾT NÊN CÂU CHUYỆN TÌNH ĐẸP</span></p>
+      <img class="el " src="assets/img/waveform.gif" alt="" style="--x:14.203;--y:22.272;--w:71.626;--h:77.728;--d:0.3s" data-reveal="fade" />
+    </div>
+    <div class="cmp c-record" style="--x:36.58;--y:16.92;--w:55.88;--ar:1.502">
+      <img class="el " src="assets/img/vinyl.webp" alt="" style="--x:45.061;--y:8.691;--w:54.939;--h:82.633" data-reveal="fade" />
+      <div class="el crop " style="--x:0;--y:0;--w:59.986;--h:100;--cl:-10.905;--ct:-0.978;--cr:-57.662;--cb:0" data-reveal="fade"><img src="assets/img/record-sleeve.webp" alt="" /></div>
+      <div class="el crop zoomable" style="--x:2.631;--y:3.764;--w:54.724;--h:92.473;--d:0.2s;--cl:0;--ct:-18.415;--cr:0;--cb:-14.861" data-reveal="fade" (click)="view('photo-story.webp')"><img src="assets/img/photo-story.webp" alt="{{ w.groom }} và {{ w.bride }}" /></div>
     </div>
   </section>
 
-  <!-- 4 · CÔ DÂU CHÚ RỂ -->
-  <section class="couple">
-    <h2 class="couple__name couple__name--groom hand" data-reveal="left" style="--d: 0.35s">{{ w.groom }}</h2>
-    <figure class="frame" data-reveal="up">
-      <img class="frame__photo" src="assets/img/photo-couple.webp" [alt]="w.groom + ' và ' + w.bride" loading="lazy" />
-      <img class="frame__gold" src="assets/img/gold-frame.webp" alt="" />
-    </figure>
-    <h2 class="couple__name couple__name--bride hand" data-reveal="right" style="--d: 0.55s">{{ w.bride }}</h2>
-  </section>
-
-  <!-- 5 · TRÂN TRỌNG KÍNH MỜI -->
-  <section class="invite">
-    <div class="heart-card">
-      <img class="heart-card__heart heart-beat" src="assets/img/heart.webp" alt="" data-reveal="zoom" />
-      <div class="heart-card__body">
-        <h2 class="script section-title" data-reveal="write" style="--d: 0.3s">Trân trọng kính mời</h2>
-        <img class="star star--twinkle" src="assets/img/star.webp" alt="" data-reveal="zoom" style="--d: 0.8s" />
-        <p class="invite__guest hand" data-reveal="blur" style="--d: 1s">{{ guest }}</p>
-      </div>
+  <!-- 3 · Lời nhắn -->
+  <section class="slide slide--quote">
+    <div class="cmp c-quote" style="--x:0;--y:0;--w:100;--ar:1.778">
+      <img class="el " src="assets/img/ticket.svg" alt="" style="--x:14.29;--y:12.95;--w:71.42;--h:74.11" data-reveal="fade" />
+      <img class="el " src="assets/img/bow.webp" alt="" style="--x:2.83;--y:6.36;--w:32.04;--h:87.28;--d:0.2s" data-reveal="fade" />
+      <img class="el " src="assets/img/rose.webp" alt="" style="--x:65.91;--y:61.59;--w:46.28;--h:88.66;--r:-37.95deg;--d:0.3s" data-reveal="fade" />
+      <p class="el t t--l t--wrap quote__text" style="--x:34.87;--y:34.35;--w:36.76;--fs:2.585;--lh:2.559;--ls:0.235" data-reveal="up"><span class="ln">Chỉ cần là đúng người, muộn một chút cũng không sao. Thật may mắn vì chúng ta đã tìm thấy nhau vào những tháng năm rực rỡ nhất. Cảm ơn bạn vì đã luôn ở đây, đồng hành và minh chứng cho tình yêu của chúng mình.</span></p>
     </div>
-    <p class="invite__line caps" data-reveal="up" style="--d: 0.5s">Đến dự buổi tiệc chung vui<br />cùng gia đình chúng tôi</p>
-  </section>
-
-  <!-- 6 · THỜI GIAN -->
-  <section class="time">
-    <div class="time__info">
-      <h2 class="script section-title" data-reveal="write">Thời gian</h2>
-      <img class="star star--twinkle time__star" src="assets/img/star.webp" alt="" data-reveal="zoom" style="--d: 0.3s" />
-      <p class="time__day caps" data-reveal="up" style="--d: 0.2s">{{ w.weekday }}<br />{{ w.dateText }}</p>
-      <p class="time__lunar" data-reveal="up" style="--d: 0.35s">{{ w.lunarText }}</p>
-      <p class="time__clock" data-reveal="zoom" style="--d: 0.5s">{{ w.timeText }}</p>
-    </div>
-    <div class="time__art">
-      <div class="stamp" data-reveal="stamp">
-        <img class="stamp__frame" src="assets/img/stamp.webp" alt="" />
-        <img class="stamp__wine" src="assets/img/wine.webp" alt="" />
-      </div>
-      @if (countdown(); as cd) {
-        <div class="countdown" data-reveal="up" style="--d: 0.3s">
-          <span><b>{{ cd.d }}</b><i>ngày</i></span>
-          <span><b>{{ cd.h }}</b><i>giờ</i></span>
-          <span><b>{{ cd.m }}</b><i>phút</i></span>
-          <span><b>{{ cd.s }}</b><i>giây</i></span>
-        </div>
-      } @else {
-        <p class="countdown countdown--done" data-reveal="up">{{ countdownDoneText() }}</p>
-      }
-      <a class="btn" [href]="calendarUrl" target="_blank" rel="noopener" data-reveal="up" style="--d: 0.45s">Thêm vào lịch</a>
+    <div class="quote-m">
+      <img class="quote-m__bow" src="assets/img/bow.webp" alt="" data-reveal="fade" style="--d:.2s" />
+      <p class="quote-m__text" data-reveal="fade">Chỉ cần là đúng người, muộn một chút cũng không sao. Thật may mắn vì chúng ta đã tìm thấy nhau vào những tháng năm rực rỡ nhất. Cảm ơn bạn vì đã luôn ở đây, đồng hành và minh chứng cho tình yêu của chúng mình.</p>
+      <img class="quote-m__rose" src="assets/img/rose.webp" alt="" data-reveal="fade" style="--d:.3s" />
     </div>
   </section>
 
-  <!-- 7 · ĐỊA ĐIỂM -->
-  <section class="place">
-    <div class="heart-card heart-card--place">
-      <img class="heart-card__heart heart-beat" src="assets/img/heart.webp" alt="" data-reveal="zoom" />
-      <div class="heart-card__body">
-        <h2 class="script section-title" data-reveal="write" style="--d: 0.2s">Địa điểm</h2>
-        <img class="star star--twinkle" src="assets/img/star.webp" alt="" data-reveal="zoom" style="--d: 0.6s" />
-        <p class="place__venue caps" data-reveal="up" style="--d: 0.5s">{{ w.venueName }}</p>
-        <p class="place__addr" data-reveal="up" style="--d: 0.7s">{{ w.venueHall }}<br />{{ w.venueAddress }}</p>
-      </div>
+  <!-- 4 · Cô dâu chú rể -->
+  <section class="slide slide--couple">
+    <div class="cmp c-frame" style="--x:32.82;--y:16.44;--w:34.36;--ar:0.865" data-reveal="fade">
+      <div class="el crop zoomable" style="--x:6.6;--y:11.8;--w:87.6;--h:76.6;--cl:0;--ct:-45.89;--cr:-14.35;--cb:-38.29"  (click)="view('photo-couple.webp')"><img src="assets/img/photo-couple.webp" alt="{{ w.groom }} và {{ w.bride }}" /></div>
+      <div class="el crop no-pe" style="--x:0;--y:0;--w:100;--h:100;--cl:-7.47;--ct:0;--cr:-7.47;--cb:0" ><img src="assets/img/gold-frame.webp" alt="" /></div>
     </div>
-    <div class="map" data-reveal="up" style="--d: 0.2s">
-      <iframe [src]="mapEmbedUrl" title="Bản đồ đến nơi tổ chức tiệc" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="cmp c-name c-name--groom" style="--x:2.72;--y:38.17;--w:30.1;--ar:2.197">
+      <p class="el t t--c hand" style="--x:0;--y:0;--w:100;--d:0.2s;--fs:33.705;--lh:47.188;--ls:0" data-reveal="up"><span class="ln">{{ w.groom }}</span></p>
     </div>
-    <a class="btn" [href]="mapUrl" target="_blank" rel="noopener" data-reveal="up">Chỉ đường</a>
-  </section>
-
-  <!-- 8 · ALBUM -->
-  <section class="album">
-    <h2 class="hand album__title" data-reveal="left">Khoảnh khắc chung đôi</h2>
-    <div class="album__grid">
-      @for (p of photos; track p.src; let i = $index) {
-        <button class="shot" [class]="'shot--' + (i + 1)" type="button" data-reveal="up" [style.--d]="i * 0.15 + 's'" (click)="lightbox.set(p)">
-          <img [src]="p.src" [alt]="p.alt" loading="lazy" />
-        </button>
-      }
+    <div class="cmp c-name c-name--bride" style="--x:67.18;--y:36.47;--w:33.47;--ar:2.452">
+      <p class="el t t--c hand" style="--x:0;--y:0;--w:100;--d:0.35s;--fs:30.22;--lh:42.308;--ls:0" data-reveal="up"><span class="ln">{{ w.bride }}</span></p>
     </div>
   </section>
 
-  <!-- 9 · CẢM ƠN -->
-  <section class="thanks">
-    <h2 class="script section-title" data-reveal="write">Hân hạnh được đón tiếp</h2>
-    <p class="thanks__lead" data-reveal="up" style="--d: 0.2s">
-      Sự hiện diện của <span class="thanks__guest">{{ guest }}</span> là món quà vô giá đối với gia đình!
-    </p>
-    <div class="families" data-reveal="lines" style="--d: 0.3s">
-      <div class="family">
-        <h3>Nhà trai</h3>
-        <p>{{ w.groomParents[0] }}<br />&amp;<br />{{ w.groomParents[1] }}</p>
-      </div>
-      <div class="family">
-        <h3>Nhà gái</h3>
-        <p>{{ w.brideParents[0] }}<br />&amp;<br />{{ w.brideParents[1] }}</p>
-      </div>
+  <!-- 5 · Trân trọng kính mời -->
+  <section class="slide slide--invite">
+    <div class="cmp c-invite" style="--x:21.3;--y:11.22;--w:57.4;--ar:1.276">
+      <img class="el " src="assets/img/heart.webp" alt="" style="--x:7.909;--y:0;--w:82.7;--h:100" data-reveal="fade" />
+      <img class="el " src="assets/img/star.webp" alt="" style="--x:45.836;--y:43.163;--w:8.328;--h:10.637;--d:0.4s" data-reveal="fade" />
+      <p class="el t t--c script" style="--x:0;--y:18.25;--w:100;--d:0.2s;--fs:10.867;--lh:10.758;--ls:0.988" data-reveal="write"><span class="ln">Trân trọng kính mời</span></p>
+      <p class="el t t--c t--wrap hand invite__guest" style="--x:0;--y:56.6;--w:100;--d:0.6s;--fs:8.014;--lh:9.408;--ls:0" data-reveal="up"><span class="ln">{{ guest }}</span></p>
     </div>
-    <p class="thanks__end caps" data-reveal="up" style="--d: 0.2s">Chân thành cám ơn!</p>
-    <p class="thanks__sign hand" data-reveal="fade" style="--d: 0.5s">{{ w.groom }} &amp; {{ w.bride }}</p>
   </section>
+
+  <!-- 6 · Thời gian -->
+  <section class="slide slide--time">
+    <div class="cmp c-time-info" style="--x:7;--y:25.9;--w:31.26;--ar:0.996">
+      <p class="el t t--c script" style="--x:0;--y:0;--w:100;--fs:19.954;--lh:19.754;--ls:1.815" data-reveal="write"><span class="ln">Thời gian</span></p>
+      <img class="el " src="assets/img/star.webp" alt="" style="--x:43.794;--y:25.583;--w:12.476;--h:12.424;--d:0.3s" data-reveal="fade" />
+      <p class="el t t--c" style="--x:25.816;--y:45.034;--w:48.401;--d:0.2s;--fs:10.314;--lh:9.592;--ls:0.937" data-reveal="up"><span class="ln">{{ w.weekday | uppercase }}</span><span class="ln">{{ w.dateText }}</span></p>
+      <p class="el t t--c italic" style="--x:3.039;--y:69.613;--w:93.986;--d:0.3s;--fs:8.473;--lh:8.388;--ls:0.771" data-reveal="up"><span class="ln">{{ w.lunarText }}</span></p>
+      <p class="el t t--c" style="--x:23.768;--y:83.256;--w:52.495;--d:0.4s;--fs:15.771;--lh:15.613;--ls:1.435" data-reveal="up"><span class="ln">{{ w.timeText }}</span></p>
+    </div>
+    <div class="cmp c-time-art" style="--x:38.27;--y:8.48;--w:50.95;--ar:0.99">
+      <img class="el " src="assets/img/stamp.webp" alt="" style="--x:13.66;--y:0;--w:81.021;--h:90.734;--r:90deg" data-reveal="fade" />
+      <div class="el crop " style="--x:0;--y:17.013;--w:100;--h:87.413;--d:0.2s;--cl:-14.573;--ct:0;--cr:-17.778;--cb:0" data-reveal="fade"><img src="assets/img/wine.webp" alt="" /></div>
+    </div>
+  </section>
+
+  <!-- 7 · Địa điểm -->
+  <section class="slide slide--place">
+    <div class="cmp c-place" style="--x:14.05;--y:11.22;--w:71.91;--ar:1.598">
+      <img class="el " src="assets/img/heart.webp" alt="" style="--x:16.395;--y:0;--w:66.013;--h:100" data-reveal="fade" />
+      <img class="el " src="assets/img/star.webp" alt="" style="--x:47.281;--y:32.613;--w:5.423;--h:8.662;--d:0.3s" data-reveal="fade" />
+      <p class="el t t--c" style="--x:0;--y:47.275;--w:100;--d:0.2s;--fs:4.952;--lh:4.605;--ls:0.45" data-reveal="up"><span class="ln">{{ w.venueName | uppercase }}</span></p>
+      <p class="el t t--c script" style="--x:28.258;--y:17.087;--w:43.471;--fs:8.674;--lh:8.587;--ls:0.789" data-reveal="write"><span class="ln">Địa điểm</span></p>
+      <p class="el t t--c italic" style="--x:1.669;--y:60.987;--w:96.649;--d:0.3s;--fs:4.484;--lh:4.17;--ls:0.408" data-reveal="up"><span class="ln">{{ w.venueHall }}</span><span class="ln">{{ w.venueAddress }}</span></p>
+    </div>
+  </section>
+
+  <!-- 8 · Khoảnh khắc chung đôi -->
+  <section class="slide slide--album">
+    <div class="cmp c-album-title" style="--x:6.79;--y:13.03;--w:43.21;--ar:10.325">
+      <p class="el t t--l hand" style="--x:0;--y:0;--w:100;--fs:9.37;--lh:9.276;--ls:0.852" data-reveal="up"><span class="ln">Khoảnh khắc chung đôi</span></p>
+    </div>
+    <div class="cmp c-photo c-photo--b" style="--x:3.8;--y:34.61;--w:28.69;--ar:0.85" data-reveal="fade">
+      <div class="el crop zoomable" style="--x:0;--y:0;--w:100;--h:100;--cl:0;--ct:-18.072;--cr:-8.878;--cb:-20.801"  (click)="view('photo-2.webp')"><img src="assets/img/photo-2.webp" alt="Ảnh cưới" /></div>
+    </div>
+    <div class="cmp c-photo c-photo--a" style="--x:35.66;--y:24.1;--w:28.69;--ar:0.85;--d:0.15s" data-reveal="fade">
+      <div class="el crop zoomable" style="--x:0;--y:0;--w:100;--h:100;--cl:0;--ct:-9.12;--cr:-4.934;--cb:-24.724"  (click)="view('photo-1.webp')"><img src="assets/img/photo-1.webp" alt="Ảnh cưới" /></div>
+    </div>
+    <div class="cmp c-photo c-photo--c" style="--x:67.52;--y:10;--w:28.69;--ar:0.85;--d:0.3s" data-reveal="fade">
+      <div class="el crop zoomable" style="--x:0;--y:0;--w:100;--h:100;--cl:0;--ct:-22.036;--cr:0;--cb:-28.688"  (click)="view('photo-3.webp')"><img src="assets/img/photo-3.webp" alt="Ảnh cưới" /></div>
+    </div>
+  </section>
+
+  <!-- 9 · Cảm ơn -->
+  <section class="slide slide--thanks">
+    <div class="cmp c-thanks" style="--x:11.6;--y:17.16;--w:76.79;--ar:2.022">
+      <p class="el t t--c script" style="--x:1.432;--y:0;--w:97.148;--fs:8.123;--lh:8.041;--ls:0.739" data-reveal="write"><span class="ln">Hân hạnh được đón tiếp</span></p>
+      <p class="el t t--c" style="--x:0;--y:21.161;--w:100;--d:0.2s;--fs:3.823;--lh:3.555;--ls:0.347" data-reveal="up"><span class="ln">Sự hiện diện của quý khách là món quà vô giá đối với gia đình!</span></p>
+      <div class="el" style="--x:12.905;--y:35.925;--w:74.202;--h:46.987"><span class="lines" data-reveal="fade" style="--d:.3s"></span></div>
+      <p class="el t t--c" style="--x:16.343;--y:42.337;--w:26.071;--d:0.35s;--fs:3.823;--lh:3.555;--ls:0.347" data-reveal="up"><span class="ln">Nhà trai</span></p>
+      <p class="el t t--c" style="--x:57.599;--y:42.337;--w:26.071;--d:0.35s;--fs:3.823;--lh:3.555;--ls:0.347" data-reveal="up"><span class="ln">Nhà gái</span></p>
+      <p class="el t t--c bold" style="--x:8.751;--y:53.058;--w:41.255;--d:0.45s;--fs:3.823;--lh:3.555;--ls:0.347" data-reveal="up"><span class="ln">{{ w.groomParents[0] }}</span><span class="ln">&amp;</span><span class="ln">{{ w.groomParents[1] }}</span></p>
+      <p class="el t t--c bold" style="--x:49.798;--y:53.058;--w:41.659;--d:0.45s;--fs:3.823;--lh:3.555;--ls:0.347" data-reveal="up"><span class="ln">{{ w.brideParents[0] }}</span><span class="ln">&amp;</span><span class="ln">{{ w.brideParents[1] }}</span></p>
+      <p class="el t t--c" style="--x:19.729;--y:91.426;--w:60.568;--d:0.3s;--fs:4.189;--lh:3.896;--ls:0.381" data-reveal="up"><span class="ln">CHÂN THÀNH CẢM ƠN!</span></p>
+    </div>
+  </section>
+
 </main>
 
 <!-- Xem ảnh lớn -->
-@if (lightbox(); as p) {
-  <div class="lightbox" (click)="lightbox.set(null)">
+@if (viewing(); as src) {
+  <div class="lightbox" (click)="viewing.set(null)">
     <button class="lightbox__close" type="button" aria-label="Đóng">×</button>
-    <img [src]="p.src" [alt]="p.alt" (click)="$event.stopPropagation()" />
+    <img [src]="'assets/img/' + src" alt="" (click)="$event.stopPropagation()" />
   </div>
 }
