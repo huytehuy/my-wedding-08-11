@@ -1,0 +1,188 @@
+<!-- Lấp lánh nền -->
+<div class="sparkles" aria-hidden="true">
+  @for (s of sparkles; track $index) {
+    <i [style]="s"></i>
+  }
+</div>
+
+<!-- Nút nhạc -->
+@if (opened()) {
+  <button class="music" type="button" aria-label="Bật/tắt nhạc" [class.is-playing]="playing()" (click)="toggleMusic()">
+    <img src="assets/img/vinyl.webp" alt="" />
+    <span class="music__note" aria-hidden="true">♪</span>
+  </button>
+}
+<audio #bgm src="assets/audio/music.m4a" loop preload="metadata" (play)="playing.set(true)" (pause)="playing.set(false)"></audio>
+
+<main>
+  <!-- 1 · BÌA + PHONG BÌ -->
+  <section class="hero" id="top" #hero>
+    <div class="hero__head">
+      <h1 class="script hero__title"><span class="write">Lễ thành hôn</span></h1>
+      <div class="date-oval intro intro--zoom" style="--d: 1.3s">
+        <img src="assets/img/date-oval.webp" alt="" />
+        <span>{{ w.dateText }}</span>
+      </div>
+      <p class="hero__names intro" style="--d: 1.6s">{{ w.groom }} &amp; {{ w.bride }}</p>
+    </div>
+
+    <button class="envelope" type="button" aria-label="Mở thiệp mời" (click)="open()">
+      <span class="envelope__tilt">
+        <img class="envelope__img" src="assets/img/envelope.webp" alt="" />
+        <span class="envelope__to">
+          <small>Kính gửi</small>
+          <strong>{{ guest }}</strong>
+        </span>
+        <span class="envelope__seal" aria-hidden="true" #seal></span>
+      </span>
+    </button>
+    <p class="hero__hint">Chạm vào con dấu để mở thiệp</p>
+
+    @for (b of bursts(); track b.id) {
+      <span class="burst" [style]="b.style"></span>
+    }
+
+    <a class="scroll-cue" href="#story" aria-label="Cuộn xuống" (click)="scrollTo($event, 'story')">
+      <span>Cuộn xuống</span>
+      <i aria-hidden="true"></i>
+    </a>
+  </section>
+
+  <!-- 2 · CÂU CHUYỆN -->
+  <section class="story" id="story">
+    <div class="story__text">
+      <p class="caps" data-reveal="up">Năm ấy, lần đầu tiên chúng ta gặp nhau<br />và viết nên câu chuyện tình đẹp</p>
+      <img class="story__wave" src="assets/img/waveform.gif" alt="" data-reveal="fade" style="--d: 0.3s" />
+    </div>
+    <div class="record" data-reveal="zoom">
+      <img class="record__vinyl" src="assets/img/vinyl.webp" alt="" />
+      <div class="record__sleeve">
+        <img class="record__paper" src="assets/img/record-sleeve.webp" alt="" />
+        <img class="record__photo" src="assets/img/photo-story.webp" [alt]="'Ảnh cưới ' + w.groom + ' và ' + w.bride" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · LỜI NHẮN -->
+  <section class="quote">
+    <div class="quote__card">
+      <img class="quote__bow" src="assets/img/bow.webp" alt="" data-reveal="down" style="--d: 0.35s" />
+      <blockquote class="ticket" data-reveal="zoom">
+        <p>
+          Chỉ cần là đúng người, muộn một chút cũng không sao. Thật may mắn vì chúng ta đã tìm thấy nhau vào
+          những tháng năm rực rỡ nhất. Cảm ơn bạn vì đã luôn ở đây, đồng hành và minh chứng cho tình yêu của
+          chúng mình.
+        </p>
+      </blockquote>
+      <img class="quote__rose" src="assets/img/rose.webp" alt="" data-reveal="rose" style="--d: 0.5s" />
+    </div>
+  </section>
+
+  <!-- 4 · CÔ DÂU CHÚ RỂ -->
+  <section class="couple">
+    <h2 class="couple__name couple__name--groom hand" data-reveal="left" style="--d: 0.35s">{{ w.groom }}</h2>
+    <figure class="frame" data-reveal="up">
+      <img class="frame__photo" src="assets/img/photo-couple.webp" [alt]="w.groom + ' và ' + w.bride" loading="lazy" />
+      <img class="frame__gold" src="assets/img/gold-frame.webp" alt="" />
+    </figure>
+    <h2 class="couple__name couple__name--bride hand" data-reveal="right" style="--d: 0.55s">{{ w.bride }}</h2>
+  </section>
+
+  <!-- 5 · TRÂN TRỌNG KÍNH MỜI -->
+  <section class="invite">
+    <div class="heart-card">
+      <img class="heart-card__heart heart-beat" src="assets/img/heart.webp" alt="" data-reveal="zoom" />
+      <div class="heart-card__body">
+        <h2 class="script section-title" data-reveal="write" style="--d: 0.3s">Trân trọng kính mời</h2>
+        <img class="star star--twinkle" src="assets/img/star.webp" alt="" data-reveal="zoom" style="--d: 0.8s" />
+        <p class="invite__guest hand" data-reveal="blur" style="--d: 1s">{{ guest }}</p>
+      </div>
+    </div>
+    <p class="invite__line caps" data-reveal="up" style="--d: 0.5s">Đến dự buổi tiệc chung vui<br />cùng gia đình chúng tôi</p>
+  </section>
+
+  <!-- 6 · THỜI GIAN -->
+  <section class="time">
+    <div class="time__info">
+      <h2 class="script section-title" data-reveal="write">Thời gian</h2>
+      <img class="star star--twinkle time__star" src="assets/img/star.webp" alt="" data-reveal="zoom" style="--d: 0.3s" />
+      <p class="time__day caps" data-reveal="up" style="--d: 0.2s">{{ w.weekday }}<br />{{ w.dateText }}</p>
+      <p class="time__lunar" data-reveal="up" style="--d: 0.35s">{{ w.lunarText }}</p>
+      <p class="time__clock" data-reveal="zoom" style="--d: 0.5s">{{ w.timeText }}</p>
+    </div>
+    <div class="time__art">
+      <div class="stamp" data-reveal="stamp">
+        <img class="stamp__frame" src="assets/img/stamp.webp" alt="" />
+        <img class="stamp__wine" src="assets/img/wine.webp" alt="" />
+      </div>
+      @if (countdown(); as cd) {
+        <div class="countdown" data-reveal="up" style="--d: 0.3s">
+          <span><b>{{ cd.d }}</b><i>ngày</i></span>
+          <span><b>{{ cd.h }}</b><i>giờ</i></span>
+          <span><b>{{ cd.m }}</b><i>phút</i></span>
+          <span><b>{{ cd.s }}</b><i>giây</i></span>
+        </div>
+      } @else {
+        <p class="countdown countdown--done" data-reveal="up">{{ countdownDoneText() }}</p>
+      }
+      <a class="btn" [href]="calendarUrl" target="_blank" rel="noopener" data-reveal="up" style="--d: 0.45s">Thêm vào lịch</a>
+    </div>
+  </section>
+
+  <!-- 7 · ĐỊA ĐIỂM -->
+  <section class="place">
+    <div class="heart-card heart-card--place">
+      <img class="heart-card__heart heart-beat" src="assets/img/heart.webp" alt="" data-reveal="zoom" />
+      <div class="heart-card__body">
+        <h2 class="script section-title" data-reveal="write" style="--d: 0.2s">Địa điểm</h2>
+        <img class="star star--twinkle" src="assets/img/star.webp" alt="" data-reveal="zoom" style="--d: 0.6s" />
+        <p class="place__venue caps" data-reveal="up" style="--d: 0.5s">{{ w.venueName }}</p>
+        <p class="place__addr" data-reveal="up" style="--d: 0.7s">{{ w.venueHall }}<br />{{ w.venueAddress }}</p>
+      </div>
+    </div>
+    <div class="map" data-reveal="up" style="--d: 0.2s">
+      <iframe [src]="mapEmbedUrl" title="Bản đồ đến nơi tổ chức tiệc" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <a class="btn" [href]="mapUrl" target="_blank" rel="noopener" data-reveal="up">Chỉ đường</a>
+  </section>
+
+  <!-- 8 · ALBUM -->
+  <section class="album">
+    <h2 class="hand album__title" data-reveal="left">Khoảnh khắc chung đôi</h2>
+    <div class="album__grid">
+      @for (p of photos; track p.src; let i = $index) {
+        <button class="shot" [class]="'shot--' + (i + 1)" type="button" data-reveal="up" [style.--d]="i * 0.15 + 's'" (click)="lightbox.set(p)">
+          <img [src]="p.src" [alt]="p.alt" loading="lazy" />
+        </button>
+      }
+    </div>
+  </section>
+
+  <!-- 9 · CẢM ƠN -->
+  <section class="thanks">
+    <h2 class="script section-title" data-reveal="write">Hân hạnh được đón tiếp</h2>
+    <p class="thanks__lead" data-reveal="up" style="--d: 0.2s">
+      Sự hiện diện của <span class="thanks__guest">{{ guest }}</span> là món quà vô giá đối với gia đình!
+    </p>
+    <div class="families" data-reveal="lines" style="--d: 0.3s">
+      <div class="family">
+        <h3>Nhà trai</h3>
+        <p>{{ w.groomParents[0] }}<br />&amp;<br />{{ w.groomParents[1] }}</p>
+      </div>
+      <div class="family">
+        <h3>Nhà gái</h3>
+        <p>{{ w.brideParents[0] }}<br />&amp;<br />{{ w.brideParents[1] }}</p>
+      </div>
+    </div>
+    <p class="thanks__end caps" data-reveal="up" style="--d: 0.2s">Chân thành cám ơn!</p>
+    <p class="thanks__sign hand" data-reveal="fade" style="--d: 0.5s">{{ w.groom }} &amp; {{ w.bride }}</p>
+  </section>
+</main>
+
+<!-- Xem ảnh lớn -->
+@if (lightbox(); as p) {
+  <div class="lightbox" (click)="lightbox.set(null)">
+    <button class="lightbox__close" type="button" aria-label="Đóng">×</button>
+    <img [src]="p.src" [alt]="p.alt" (click)="$event.stopPropagation()" />
+  </div>
+}

@@ -1,0 +1,118 @@
+<header class="top">
+  <p class="top__kicker">Lễ thành hôn · {{ w.dateText }}</p>
+  <h1 class="top__title">{{ w.groom }} &amp; {{ w.bride }}</h1>
+  <p class="top__sub">Tạo link thiệp mời riêng cho từng khách</p>
+</header>
+
+<main class="wrap">
+  <!-- 1 · Tạo 1 link -->
+  <section class="card" aria-labelledby="h-single">
+    <h2 id="h-single" class="card__title"><span class="num">1</span> Thông tin khách mời</h2>
+
+    <div class="grid">
+      <label class="field">
+        <span>Danh xưng</span>
+        <select [(ngModel)]="prefix">
+          @for (p of prefixes; track p) {
+            <option [value]="p">{{ p || '(Không)' }}</option>
+          }
+        </select>
+      </label>
+      <label class="field">
+        <span>Tên khách</span>
+        <input #nameInput type="text" maxlength="60" placeholder="VD: Nam" autocomplete="off" [(ngModel)]="name" (keydown.enter)="copyLink()" />
+      </label>
+      <label class="field">
+        <span>Đi kèm</span>
+        <select [(ngModel)]="suffix">
+          @for (s of suffixes; track s) {
+            <option [value]="s">{{ s || '(Không)' }}</option>
+          }
+        </select>
+      </label>
+    </div>
+
+    <div class="preview" aria-live="polite">
+      <small>Trên thiệp sẽ hiện</small>
+      <p class="preview__name">{{ fullName() || w.defaultGuest }}</p>
+    </div>
+
+    <label class="field">
+      <span>Link thiệp</span>
+      <input class="link-out" type="text" readonly [value]="link() || linkPlaceholder()" (focus)="$any($event.target).select()" />
+    </label>
+
+    <div class="actions">
+      <button class="btn btn--primary" type="button" [disabled]="!link()" (click)="copyLink()">Sao chép link</button>
+      <button class="btn" type="button" [disabled]="!link()" (click)="copyMessage()">Sao chép lời mời + link</button>
+      <a class="btn" [class.is-disabled]="!link()" [href]="link() || null" target="_blank" rel="noopener" (click)="remember()">Mở thử</a>
+      @if (canShare) {
+        <button class="btn" type="button" [disabled]="!link()" (click)="share()">Chia sẻ…</button>
+      }
+    </div>
+    <p class="hint">Link dùng được ngay. Mỗi lần sao chép, khách sẽ được lưu vào danh sách bên dưới.</p>
+  </section>
+
+  <!-- 2 · Tạo hàng loạt -->
+  <section class="card" aria-labelledby="h-bulk">
+    <h2 id="h-bulk" class="card__title"><span class="num">2</span> Tạo nhiều link cùng lúc</h2>
+    <p class="hint">Mỗi dòng là một khách, gõ đúng như muốn hiện trên thiệp.</p>
+    <textarea #bulk rows="6" [placeholder]="bulkPlaceholder"></textarea>
+    <div class="actions">
+      <button class="btn btn--primary" type="button" (click)="addBulk(bulk)">Thêm vào danh sách</button>
+    </div>
+  </section>
+
+  <!-- 3 · Danh sách -->
+  <section class="card" aria-labelledby="h-list">
+    <div class="card__head">
+      <h2 id="h-list" class="card__title">
+        <span class="num">3</span> Danh sách khách <span class="count">{{ guests().length }}</span>
+      </h2>
+      <div class="actions actions--tight">
+        <button class="btn btn--sm" type="button" (click)="exportCsv()">Tải file Excel (CSV)</button>
+        <button class="btn btn--sm btn--ghost" type="button" (click)="clearAll()">Xoá hết</button>
+      </div>
+    </div>
+    <input class="search" type="search" placeholder="Tìm khách…" [(ngModel)]="search" />
+    <ul class="guests">
+      @for (g of filteredGuests(); track g.name) {
+        <li class="guest">
+          <span class="guest__name">{{ g.name }}</span>
+          <span class="guest__btns">
+            <button class="icon-btn" type="button" title="Sao chép link" (click)="copyGuest(g.name, false)">Link</button>
+            <button class="icon-btn" type="button" title="Sao chép lời mời" (click)="copyGuest(g.name, true)">Lời mời</button>
+            <button class="icon-btn icon-btn--del" type="button" title="Xoá khỏi danh sách" aria-label="Xoá khỏi danh sách" (click)="removeGuest(g.name)">✕</button>
+          </span>
+          <a class="guest__link" [href]="linkFor(g.name)" target="_blank" rel="noopener">{{ linkFor(g.name) }}</a>
+        </li>
+      }
+    </ul>
+    @if (!guests().length) {
+      <p class="empty">Chưa có khách nào. Tạo link ở mục 1 hoặc 2 nhé.</p>
+    }
+  </section>
+
+  <!-- 4 · Cài đặt -->
+  <section class="card" aria-labelledby="h-settings">
+    <h2 id="h-settings" class="card__title"><span class="num">4</span> Cài đặt</h2>
+    <label class="field">
+      <span>Địa chỉ trang thiệp</span>
+      <input type="url" spellcheck="false" [(ngModel)]="base" />
+    </label>
+    <p class="hint">
+      Mặc định là tên miền đang mở trang này. Chỉ sửa nếu bạn muốn link dùng tên miền khác (ví dụ tên miền riêng).
+    </p>
+    <label class="field">
+      <span>Mẫu lời mời (dùng <code>{{ '{ten}' }}</code> và <code>{{ '{link}' }}</code>)</span>
+      <textarea rows="4" [(ngModel)]="template"></textarea>
+    </label>
+    <div class="actions">
+      <button class="btn btn--sm btn--ghost" type="button" (click)="resetTemplate()">Khôi phục mẫu mặc định</button>
+    </div>
+  </section>
+
+  <p class="foot"><a routerLink="/">Xem thiệp mẫu →</a></p>
+</main>
+
+<div class="toast" [class.is-show]="toastShow()" role="status" aria-live="polite">{{ toastText() }}</div>

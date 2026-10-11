@@ -1,0 +1,38 @@
+/* ============ Style dùng chung cho toàn trang ============ */
+:root {
+  --bg: #591707;
+  --bg-deep: #3c0e03;
+  --cream: #fff6ec;
+  --paper: #fffaf4;
+  --gold: #daae6c;
+  --wine: #8b2109;
+  --ink: #3a1a12;
+  --muted: #8a6f63;
+  --line: #ead9c6;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --gutter: 20px;
+  --env: min(128vw, 720px, 100svh);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(120% 70% at 50% 0%, #6b200d 0%, transparent 60%),
+    radial-gradient(100% 60% at 50% 100%, #4a1205 0%, transparent 70%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--cream);
+  font-family: "Sarabun", "Th Sarabun New", system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+/* Trang thiệp khoá cuộn cho tới khi khách mở phong bì */
+body.is-locked { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
