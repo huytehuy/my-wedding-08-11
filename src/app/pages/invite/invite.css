@@ -191,6 +191,39 @@ img.el {
 :host(.is-open) .env__seal { animation: none; opacity: 0; scale: 1.25; }
 
 /* ======================================================
+   4 · KHUNG ẢNH VÒM CỔNG
+   radius 999px: trình duyệt tự thu về đúng nửa bề ngang -> đỉnh là nửa vòng tròn
+   ====================================================== */
+.c-frame { filter: drop-shadow(0 2cqw 4cqw rgba(0, 0, 0, .35)); }
+.arch {
+  position: absolute;
+  border-radius: 999px 999px 0 0;
+  pointer-events: none;
+}
+.arch--outer {
+  inset: 0;
+  border: max(1.5px, .7cqw) solid var(--gold);
+}
+.arch--inner {
+  inset: 2.4cqw;
+  border: max(1px, .3cqw) solid rgba(218, 174, 108, .7);
+}
+.arch-photo {
+  position: absolute;
+  inset: 4.6cqw;
+  overflow: hidden;
+  border-radius: 999px 999px 0 0;
+  cursor: zoom-in;
+}
+.arch-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 35%;
+}
+
+/* ======================================================
    9 · CẢM ƠN — 3 đường kẻ trắng (1.5pt) như slide
    ====================================================== */
 .lines {

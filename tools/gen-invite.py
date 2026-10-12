@@ -143,13 +143,13 @@ slides.append(('quote', 'Lời nhắn', [
 
 # ---------- 4 · CÔ DÂU CHÚ RỂ ----------
 slides.append(('couple', 'Cô dâu chú rể', [
+    # Khung vòm cổng mảnh (thay cho khung vàng chạm trổ của slide gốc), giữ nguyên vị trí & kích thước khung
     cmp('c-frame', 32.82, 16.44, 34.36, 70.61, [
-        # pptx: ảnh ở 7.375/10.618/86.198/78.763 % khung, nhưng lỗ của khung bắt đầu ở 6.94% -> hở 1 vệt nền.
-        # Đặt ảnh dưới khung, mở rộng tới 6.6–94.2% x 11.8–88.4% (giữ nguyên vị trí nội dung ảnh)
-        img('zoomable', 'photo-couple.webp', 32.82 + 34.36 * .066, 16.44 + 70.61 * .118, 34.36 * .876, 70.61 * .766,
-            crop=(0, -45.89, -14.35, -38.29), alt="{{ w.groom }} và {{ w.bride }}", reveal=None,
-            view='photo-couple.webp'),
-        img('no-pe', 'gold-frame.webp', 32.82, 16.44, 34.36, 70.61, crop=(-7.47, 0, -7.47, 0), reveal=None),
+        raw('<span class="arch arch--outer"></span>'
+            '<span class="arch arch--inner"></span>'
+            '<div class="arch-photo zoomable" (click)="view(' + "'photo-couple.webp'" + ')">'
+            '<img src="assets/img/photo-couple.webp" alt="{{ w.groom }} và {{ w.bride }}" /></div>',
+            32.82, 16.44, 34.36, 70.61),
     ], reveal='fade'),
     cmp('c-name c-name--groom', 2.72, 38.17, 30.10, 24.36, [
         txt('hand', 2.72, 38.17, 30.10, ['{{ w.groom }}'], fs=SZ(14609), lh=SZ(20453), d=.2),
