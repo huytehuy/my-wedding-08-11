@@ -1,0 +1,33 @@
+rules_version = '2';
+
+// Dán toàn bộ file này vào Firebase Console → Firestore Database → Rules.
+// Giữ nguyên quy tắc cũ của dự án AllInOne cho mọi collection, trừ wedding_logs.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Quy tắc cũ của app AllInOne: người đã đăng nhập được đọc/ghi (trừ log thiệp cưới)
+    match /{collection}/{document=**} {
+      allow read, write: if request.auth != null && collection != 'wedding_logs';
+    }
+
+    // Thiệp cưới: ai cũng THÊM được log (khách xem thiệp, trang tạo link), không sửa/xoá được.
+    // Chỉ 2 số điện thoại này đăng nhập ở /xem-log mới ĐỌC được (giống allowedPhones trong firebase.config.ts).
+    match /wedding_logs/{id} {
+      allow read: if request.auth != null
+        && request.auth.token.get('phone_number', '') in ['+84366889853', '+84832213838'];
+
+      allow create: if request.resource.data.keys().hasOnly(
+            ['event', 'guest', 'detail', 'secs', 'session', 'url', 'referrer', 'ua', 'lang', 'screen', 'at'])
+        && request.resource.data.event in ['link', 'visit', 'open', 'music', 'photo', 'leave']
+        && request.resource.data.guest is string && request.resource.data.guest.size() <= 80
+        && request.resource.data.detail is string && request.resource.data.detail.size() <= 100
+        && request.resource.data.secs is int
+        && request.resource.data.session is string && request.resource.data.session.size() <= 64
+        && request.resource.data.url is string && request.resource.data.url.size() <= 500
+        && request.resource.data.referrer is string && request.resource.data.referrer.size() <= 500
+        && request.resource.data.ua is string && request.resource.data.ua.size() <= 300
+        && request.resource.data.lang is string && request.resource.data.lang.size() <= 40
+        && request.resource.data.screen is string && request.resource.data.screen.size() <= 20
+        && request.resource.data.at == request.time;
+    }
+  }
+}

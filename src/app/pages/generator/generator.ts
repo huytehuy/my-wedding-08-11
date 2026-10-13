@@ -2,6 +2,7 @@ import { Component, DOCUMENT, ElementRef, computed, effect, inject, signal, view
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { buildInviteLink, cleanName } from '../../guest-link';
+import { VisitLog } from '../../visit-log';
 import { WEDDING } from '../../wedding.config';
 
 interface Guest {
@@ -39,6 +40,7 @@ function load(): Saved {
 export class Generator {
   protected readonly w = WEDDING;
   private readonly doc = inject(DOCUMENT);
+  private readonly visitLog = inject(VisitLog);
   private readonly saved = load();
   private readonly defaultBase = this.doc.location.origin + '/';
 
@@ -98,7 +100,11 @@ export class Generator {
   /** Thêm khách vào danh sách, trả về false nếu đã có. */
   private addGuest(name: string): boolean {
     const exists = this.guests().some((g) => g.name.toLowerCase() === name.toLowerCase());
-    if (!exists) this.guests.update((list) => [{ name, at: Date.now() }, ...list]);
+    if (!exists) {
+      this.guests.update((list) => [{ name, at: Date.now() }, ...list]);
+      // Ghi lại link đã tạo để trang /xem-log biết khách đã mở link chưa
+      this.visitLog.log('link', '', name);
+    }
     return !exists;
   }
 

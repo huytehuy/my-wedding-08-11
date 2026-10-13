@@ -1,0 +1,172 @@
+<header class="top">
+  <p class="top__kicker">Lễ thành hôn · {{ w.dateText }}</p>
+  <h1 class="top__title">{{ w.groom }} &amp; {{ w.bride }}</h1>
+  <p class="top__sub">Ai đã xem thiệp</p>
+</header>
+
+<main class="wrap">
+  @if (user() === undefined) {
+    <section class="card"><p class="empty">Đang kiểm tra đăng nhập…</p></section>
+  } @else if (!user()) {
+    @if (!codeSent()) {
+      <form class="card login" (submit)="$event.preventDefault(); sendCode()">
+        <label class="field">
+          <span>Số điện thoại</span>
+          <input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx" [(ngModel)]="phone" />
+        </label>
+        <div class="actions">
+          <button class="btn btn--primary" type="submit" [disabled]="signingIn() || !phone().trim()">
+            {{ signingIn() ? 'Đang gửi…' : 'Gửi mã' }}
+          </button>
+        </div>
+        @if (error()) {
+          <p class="hint is-warn">{{ error() }}</p>
+        }
+      </form>
+    } @else {
+      <form class="card login" (submit)="$event.preventDefault(); confirmCode()">
+        <label class="field">
+          <span>Mã PIN của {{ phone() }}</span>
+          <input type="password" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" [(ngModel)]="code" />
+        </label>
+        <div class="actions">
+          <button class="btn btn--primary" type="submit" [disabled]="signingIn() || !code().trim()">
+            {{ signingIn() ? 'Đang đăng nhập…' : 'Đăng nhập' }}
+          </button>
+          <button class="btn btn--ghost" type="button" (click)="changePhone()">Đổi số</button>
+        </div>
+        @if (error()) {
+          <p class="hint is-warn">{{ error() }}</p>
+        }
+      </form>
+    }
+  } @else {
+    <!-- Thanh công cụ -->
+    <section class="card">
+      <div class="card__head">
+        @if (error()) {
+          <p class="hint is-warn">{{ error() }}</p>
+        } @else {
+          <p class="hint">{{ loadedAt() ? 'Cập nhật lúc ' + time(loadedAt()!) : 'Đang tải…' }}</p>
+        }
+        <div class="actions actions--tight">
+          <button class="btn btn--sm btn--primary" type="button" [disabled]="loading()" (click)="reload()">
+            {{ loading() ? 'Đang tải…' : 'Tải lại' }}
+          </button>
+          <button class="btn btn--sm btn--ghost" type="button" (click)="signOut()">Đăng xuất</button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b>{{ stats().links }}</b><span>link đã tạo</span></div>
+        <div class="stat"><b>{{ stats().clicked }}</b><span>link đã có người mở</span></div>
+        <div class="stat"><b>{{ stats().opened }}</b><span>khách mở phong bì</span></div>
+      </div>
+
+      <input class="search" type="search" placeholder="Tìm khách…" [(ngModel)]="search" />
+      <label class="check">
+        <input type="checkbox" [(ngModel)]="hideTests" />
+        <span>Ẩn lượt mở thử (trên máy, hoặc tự bấm mở link từ trang tạo link / trang này)</span>
+      </label>
+    </section>
+
+    <!-- Link đã tạo -->
+    <section class="card" aria-labelledby="h-links">
+      <h2 id="h-links" class="card__title">
+        <span class="num">1</span> Link đã tạo <span class="count">{{ links().length }}</span>
+      </h2>
+      <ul class="guests">
+        @for (l of links(); track l.name) {
+          <li class="guest link-row">
+            <span class="guest__name">{{ l.name }}</span>
+            @if (l.visits) {
+              <span class="badge badge--ok">{{ l.opened ? 'Đã mở thiệp' : 'Đã nhấp link' }}</span>
+            } @else {
+              <span class="badge">Chưa ai mở</span>
+            }
+            <span class="meta">
+              Tạo lúc {{ time(l.createdAt) }}
+              @if (l.lastVisit) {
+                · {{ l.visits }} lần mở · lần cuối {{ time(l.lastVisit) }}
+              }
+            </span>
+            <a class="guest__link" [href]="l.link" target="_blank" rel="noopener">{{ prettyLink(l.link) }}</a>
+          </li>
+        }
+      </ul>
+      @if (!links().length && !loading()) {
+        <p class="empty">Chưa tạo link nào (link tạo ở trang tạo link sẽ hiện ở đây).</p>
+      }
+    </section>
+
+    <!-- Theo khách -->
+    <section class="card" aria-labelledby="h-guests">
+      <h2 id="h-guests" class="card__title">
+        <span class="num">2</span> Khách đã xem <span class="count">{{ guests().length }}</span>
+      </h2>
+      <ul class="guests">
+        @for (g of guests(); track g.name) {
+          <li class="guest log-guest" [class.is-open]="expanded() === g.name">
+            <button class="log-guest__head" type="button" (click)="toggle(g.name)" [attr.aria-expanded]="expanded() === g.name">
+              <span class="guest__name">{{ g.name || '(không tên)' }}</span>
+              <span class="badge" [class.badge--ok]="g.opened">{{ g.opened ? 'Đã mở thiệp' : 'Chỉ xem bìa' }}</span>
+              <span class="meta">
+                {{ g.visits }} lần · lần cuối {{ time(g.last) }} · xem {{ duration(g.totalSecs) }}
+                @if (g.furthest) {
+                  · tới trang {{ g.furthest }}
+                }
+                · {{ g.devices.join(', ') }}
+              </span>
+            </button>
+            <a class="guest__link" [href]="g.link" target="_blank" rel="noopener">{{ prettyLink(g.link) }}</a>
+            @if (expanded() === g.name) {
+              <ol class="timeline">
+                @for (e of g.entries; track e.id) {
+                  <li>
+                    <time>{{ time(e.at) }}</time>
+                    @if (e.event === 'visit' && e.url) {
+                      <a [href]="e.url" target="_blank" rel="noopener">{{ label(e) }}</a>
+                    } @else {
+                      {{ label(e) }}
+                    }
+                  </li>
+                }
+              </ol>
+            }
+          </li>
+        }
+      </ul>
+      @if (!guests().length && !loading()) {
+        <p class="empty">Chưa có khách nào mở thiệp.</p>
+      }
+    </section>
+
+    <!-- Tất cả hoạt động -->
+    <section class="card" aria-labelledby="h-recent">
+      <h2 id="h-recent" class="card__title"><span class="num">3</span> Hoạt động gần đây</h2>
+      <ol class="timeline timeline--all">
+        @for (e of recent(); track e.id) {
+          <li>
+            <time>{{ time(e.at) }}</time>
+            <b>{{ e.guest || '(không tên)' }}</b>
+            @if (e.event === 'visit' && e.url) {
+              <a [href]="e.url" target="_blank" rel="noopener">{{ label(e) }}</a>
+            } @else {
+              {{ label(e) }}
+            }
+            @if (e.event !== 'link') {
+              <small>{{ device(e.ua) }}</small>
+            }
+          </li>
+        }
+      </ol>
+      @if (!recent().length && !loading()) {
+        <p class="empty">Chưa có hoạt động.</p>
+      }
+    </section>
+  }
+
+  <p class="foot"><a routerLink="/tao-link">← Trang tạo link</a></p>
+  <!-- reCAPTCHA ẩn của Firebase khi gửi mã -->
+  <div id="recaptcha"></div>
+</main>

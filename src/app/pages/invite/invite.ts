@@ -13,6 +13,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Reveal } from '../../shared/reveal.directive';
 import { cleanName } from '../../guest-link';
+import { VisitLog } from '../../visit-log';
 import { WEDDING } from '../../wedding.config';
 
 @Component({
@@ -33,6 +34,9 @@ export class Invite {
   protected readonly w = WEDDING;
   private readonly doc = inject(DOCUMENT);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+  private readonly visitLog = inject(VisitLog);
+  /** Trang xa nhất khách đã lướt tới (ghi kèm lúc rời trang) */
+  private furthest = 0;
 
   /** Tên khách lấy từ link, ví dụ /?to=Anh+Nam */
   protected readonly guest: string;
@@ -55,6 +59,8 @@ export class Invite {
     const params = inject(ActivatedRoute).snapshot.queryParamMap;
     this.guest = cleanName(params.get(WEDDING.guestParam) ?? params.get('n')) || WEDDING.defaultGuest;
     inject(Title).setTitle(`Kính gửi ${this.guest} · Thiệp cưới ${WEDDING.groom} & ${WEDDING.bride}`);
+    this.visitLog.setGuest(this.guest);
+    this.visitLog.log('visit');
 
     const destroyRef = inject(DestroyRef);
     afterNextRender(() => {
@@ -76,12 +82,24 @@ export class Invite {
       );
       io.observe(story);
       destroyRef.onDestroy(() => io.disconnect());
+
+      // Nhớ trang xa nhất khách đã xem
+      const slides = [...this.host.querySelectorAll('.slide')];
+      const seen = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) if (e.isIntersecting) this.furthest = Math.max(this.furthest, slides.indexOf(e.target));
+        },
+        { threshold: 0.3 },
+      );
+      slides.forEach((s) => seen.observe(s));
+      destroyRef.onDestroy(() => seen.disconnect());
     });
   }
 
   /** Bấm vào phong bì: con dấu bật ra, nắp lật mở, rồi tự cuộn sang trang 2 */
   protected open(): void {
     this.opened.set(true);
+    this.visitLog.log('open');
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
     setTimeout(
       () => this.host.querySelector('.slide--story')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' }),
@@ -91,6 +109,7 @@ export class Invite {
 
   protected view(file: string): void {
     this.viewing.set(file);
+    this.visitLog.log('photo', file);
   }
 
   /** Bấm vào đĩa góc dưới bên phải: bật/tắt nhạc */
@@ -99,6 +118,7 @@ export class Invite {
     this.wantMusic = audio.paused || audio.muted;
     if (this.wantMusic) this.playMusic();
     else audio.pause();
+    this.visitLog.log('music', this.wantMusic ? 'on' : 'off');
   }
 
   /** Cập nhật trạng thái nút đĩa (bỏ qua lúc đang mở khoá im lặng) */
@@ -116,8 +136,13 @@ export class Invite {
   }
 
   protected onVisibilityChange(): void {
-    if (this.doc.hidden) this.audio().nativeElement.pause();
-    else if (this.shouldPlay()) this.playMusic();
+    if (this.doc.hidden) {
+      this.audio().nativeElement.pause();
+      // Khách rời tab / tắt màn hình: ghi thời gian xem và trang xa nhất (vd "6/9 album")
+      const slides = this.host.querySelectorAll('.slide');
+      const name = slides[this.furthest]?.className.match(/slide--(\S+)/)?.[1] ?? '';
+      this.visitLog.log('leave', `${this.furthest + 1}/${slides.length} ${name}`);
+    } else if (this.shouldPlay()) this.playMusic();
   }
 
   private shouldPlay(): boolean {
