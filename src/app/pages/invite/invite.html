@@ -81,13 +81,13 @@
       <p class="el t t--c" style="--x:50;--y:30.4;--w:42.5;--d:0.3s;--fs:1.944;--lh:1.808;--ls:0.176" data-reveal="up"><span class="ln">{{ w.brideHome }}</span></p>
       <p class="el t t--c bold" style="--x:7.5;--y:39.6;--w:85;--d:0.2s;--fs:2.429;--lh:2.259;--ls:0.221" data-reveal="up"><span class="ln">TRÂN TRỌNG BÁO TIN</span><span class="ln">LỄ THÀNH HÔN CỦA CON CHÚNG TÔI</span></p>
       <div class="el" style="--x:7.5;--y:51.7;--w:85;--h:18.3"><span class="lines" data-reveal="fade" style="--d:.3s"></span></div>
-      <p class="el t t--c italic" style="--x:7.5;--y:54.7;--w:42.5;--d:0.35s;--fs:3.889;--lh:4.472;--ls:0.312" data-reveal="up"><span class="ln">{{ w.groomFullName }}</span></p>
-      <p class="el t t--c italic" style="--x:50;--y:54.7;--w:42.5;--d:0.35s;--fs:3.889;--lh:4.472;--ls:0.312" data-reveal="up"><span class="ln">{{ w.brideFullName }}</span></p>
-      <p class="el t t--c italic" style="--x:7.5;--y:63.2;--w:42.5;--d:0.45s;--fs:1.944;--lh:2.153;--ls:0.16" data-reveal="up"><span class="ln">{{ w.groomRank }}</span></p>
-      <p class="el t t--c italic" style="--x:50;--y:63.2;--w:42.5;--d:0.45s;--fs:1.944;--lh:2.153;--ls:0.16" data-reveal="up"><span class="ln">{{ w.brideRank }}</span></p>
-      <p class="el t t--c bold" style="--x:7.5;--y:78.6;--w:85;--d:0.2s;--fs:2.033;--lh:1.89;--ls:0.185" data-reveal="up"><span class="ln">{{ w.homeCeremony | uppercase }}</span><span class="ln">VÀO LÚC {{ w.homeTime | uppercase }}</span></p>
-      <p class="el t t--c bold" style="--x:7.5;--y:85.7;--w:85;--d:0.3s;--fs:3.144;--lh:2.924;--ls:0.286" data-reveal="up"><span class="ln">{{ w.dateSlash }}</span></p>
-      <p class="el t t--c bold" style="--x:7.5;--y:92.4;--w:85;--d:0.4s;--fs:1.477;--lh:1.374;--ls:0.134" data-reveal="up"><span class="ln">{{ w.lunarFull }}</span></p>
+      <p class="el t t--c script couple-script" style="--x:7.5;--y:53.7;--w:42.5;--d:0.35s;--fs:3.472;--lh:5.208;--ls:0.139" data-reveal="up"><span class="ln">{{ w.groomFullName }}</span></p>
+      <p class="el t t--c script couple-script" style="--x:50;--y:53.7;--w:42.5;--d:0.35s;--fs:3.472;--lh:5.208;--ls:0.139" data-reveal="up"><span class="ln">{{ w.brideFullName }}</span></p>
+      <p class="el t t--c italic" style="--x:7.5;--y:63.5;--w:42.5;--d:0.45s;--fs:1.944;--lh:2.153;--ls:0.16" data-reveal="up"><span class="ln">{{ w.groomRank }}</span></p>
+      <p class="el t t--c italic" style="--x:50;--y:63.5;--w:42.5;--d:0.45s;--fs:1.944;--lh:2.153;--ls:0.16" data-reveal="up"><span class="ln">{{ w.brideRank }}</span></p>
+      <p class="el t t--c script when-script" style="--x:7.5;--y:73.6;--w:85;--d:0.2s;--fs:3.194;--lh:4.444;--ls:0.083" data-reveal="up"><span class="ln">{{ w.homeCeremony }} vào lúc {{ w.homeTime }}</span></p>
+      <p class="el t t--c bold" style="--x:7.5;--y:82.6;--w:85;--d:0.3s;--fs:3.144;--lh:2.924;--ls:0.286" data-reveal="up"><span class="ln">{{ w.dateSlash }}</span></p>
+      <p class="el t t--c italic" style="--x:7.5;--y:89.6;--w:85;--d:0.4s;--fs:1.736;--lh:1.667;--ls:0.139" data-reveal="up"><span class="ln">{{ w.lunarFull }}</span></p>
     </div>
     <div class="report-m">
       <div class="report-m__parents" data-reveal="fade">
@@ -107,7 +107,7 @@
         <p class="report-m__person"><span class="report-m__name">{{ w.groomFullName }}</span><span class="report-m__rank">{{ w.groomRank }}</span></p>
         <p class="report-m__person"><span class="report-m__name">{{ w.brideFullName }}</span><span class="report-m__rank">{{ w.brideRank }}</span></p>
       </div>
-      <p class="report-m__ceremony" data-reveal="up">{{ w.homeCeremony | uppercase }}<br />VÀO LÚC {{ w.homeTime | uppercase }}<span class="report-m__date">{{ w.dateSlash }}</span><span class="report-m__lunar">{{ w.lunarFull }}</span></p>
+      <p class="report-m__ceremony" data-reveal="up"><span class="report-m__when">{{ w.homeCeremony }}<br />vào lúc {{ w.homeTime }}</span><span class="report-m__date">{{ w.dateSlash }}</span><span class="report-m__lunar">{{ w.lunarFull }}</span></p>
     </div>
   </section>
 

@@ -181,15 +181,17 @@ slides.append(('report', 'Báo tin', [
         txt('bold', 7.5, 39.6, 85, ['TRÂN TRỌNG BÁO TIN', 'LỄ THÀNH HÔN CỦA CON CHÚNG TÔI'],
             fs=SZ(3498), lh=SZ(3253), ls=SZ(318), d=.2),
         raw('<span class="lines" data-reveal="fade" style="--d:.3s"></span>', 7.5, 51.7, 85, 18.3),
-        # Tên cô dâu chú rể: chữ nghiêng TH Sarabun (Dancing Script nét tròn quá, Ballet thì chữ hoa dính nhau khó đọc)
-        txt('italic', COL_L, 54.7, COL_W, ['{{ w.groomFullName }}'], fs=SZ(5600), lh=SZ(6440), ls=SZ(450), d=.35),
-        txt('italic', COL_R, 54.7, COL_W, ['{{ w.brideFullName }}'], fs=SZ(5600), lh=SZ(6440), ls=SZ(450), d=.35),
-        txt('italic', COL_L, 63.2, COL_W, ['{{ w.groomRank }}'], fs=SZ(2800), lh=SZ(3100), ls=SZ(230), d=.45),
-        txt('italic', COL_R, 63.2, COL_W, ['{{ w.brideRank }}'], fs=SZ(2800), lh=SZ(3100), ls=SZ(230), d=.45),
-        txt('bold', 7.5, 78.6, 85, ['{{ w.homeCeremony | uppercase }}', 'VÀO LÚC {{ w.homeTime | uppercase }}'],
-            fs=SZ(2927), lh=SZ(2722), ls=SZ(266), d=.2),
-        txt('bold', 7.5, 85.7, 85, ['{{ w.dateSlash }}'], fs=SZ(4527), lh=SZ(4210), ls=SZ(412), d=.3),
-        txt('bold', 7.5, 92.4, 85, ['{{ w.lunarFull }}'], fs=SZ(2127), lh=SZ(1978), ls=SZ(193), d=.4),
+        # Tên cô dâu chú rể: chữ Ballet nghiêng hoa văn như tiêu đề; giãn khoảng cách giữa các chữ
+        # (couple-script) để nét hoa của chữ hoa không dính vào nhau
+        txt('script couple-script', COL_L, 53.7, COL_W, ['{{ w.groomFullName }}'], fs=SZ(5000), lh=SZ(7500), ls=SZ(200), d=.35),
+        txt('script couple-script', COL_R, 53.7, COL_W, ['{{ w.brideFullName }}'], fs=SZ(5000), lh=SZ(7500), ls=SZ(200), d=.35),
+        txt('italic', COL_L, 63.5, COL_W, ['{{ w.groomRank }}'], fs=SZ(2800), lh=SZ(3100), ls=SZ(230), d=.45),
+        txt('italic', COL_R, 63.5, COL_W, ['{{ w.brideRank }}'], fs=SZ(2800), lh=SZ(3100), ls=SZ(230), d=.45),
+        # Giờ lễ: cùng kiểu với tên (Ballet hoa văn, viết thường cho dễ đọc), ngày giữ đậm, âm lịch nghiêng
+        txt('script when-script', 7.5, 73.6, 85, ['{{ w.homeCeremony }} vào lúc {{ w.homeTime }}'],
+            fs=SZ(4600), lh=SZ(6400), ls=SZ(120), d=.2),
+        txt('bold', 7.5, 82.6, 85, ['{{ w.dateSlash }}'], fs=SZ(4527), lh=SZ(4210), ls=SZ(412), d=.3),
+        txt('italic', 7.5, 89.6, 85, ['{{ w.lunarFull }}'], fs=SZ(2500), lh=SZ(2400), ls=SZ(200), d=.4),
     ]),
 ]))
 
@@ -299,7 +301,7 @@ for i, (key, label, cmps) in enumerate(slides, 1):
         <p class="report-m__person"><span class="report-m__name">{{ w.groomFullName }}</span><span class="report-m__rank">{{ w.groomRank }}</span></p>
         <p class="report-m__person"><span class="report-m__name">{{ w.brideFullName }}</span><span class="report-m__rank">{{ w.brideRank }}</span></p>
       </div>
-      <p class="report-m__ceremony" data-reveal="up">{{ w.homeCeremony | uppercase }}<br />VÀO LÚC {{ w.homeTime | uppercase }}<span class="report-m__date">{{ w.dateSlash }}</span><span class="report-m__lunar">{{ w.lunarFull }}</span></p>
+      <p class="report-m__ceremony" data-reveal="up"><span class="report-m__when">{{ w.homeCeremony }}<br />vào lúc {{ w.homeTime }}</span><span class="report-m__date">{{ w.dateSlash }}</span><span class="report-m__lunar">{{ w.lunarFull }}</span></p>
     </div>''')
     if key == 'quote':
         # Điện thoại: slide ngang quá nhỏ để đọc, nên xếp tấm vé dọc với cùng ảnh & chữ
