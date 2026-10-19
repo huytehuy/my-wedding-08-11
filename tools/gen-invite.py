@@ -187,11 +187,10 @@ slides.append(('report', 'Báo tin', [
         txt('script couple-script', COL_R, 53.7, COL_W, ['{{ w.brideFullName }}'], fs=SZ(5000), lh=SZ(7500), ls=SZ(200), d=.35),
         txt('italic', COL_L, 63.5, COL_W, ['{{ w.groomRank }}'], fs=SZ(2800), lh=SZ(3100), ls=SZ(230), d=.45),
         txt('italic', COL_R, 63.5, COL_W, ['{{ w.brideRank }}'], fs=SZ(2800), lh=SZ(3100), ls=SZ(230), d=.45),
-        # Giờ lễ: cùng kiểu với tên (Ballet hoa văn, viết thường cho dễ đọc), ngày giữ đậm, âm lịch nghiêng
-        txt('script when-script', 7.5, 73.6, 85, ['{{ w.homeCeremony }} vào lúc {{ w.homeTime }}'],
-            fs=SZ(4600), lh=SZ(6400), ls=SZ(120), d=.2),
-        txt('bold', 7.5, 82.6, 85, ['{{ w.dateSlash }}'], fs=SZ(4527), lh=SZ(4210), ls=SZ(412), d=.3),
-        txt('italic', 7.5, 89.6, 85, ['{{ w.lunarFull }}'], fs=SZ(2500), lh=SZ(2400), ls=SZ(200), d=.4),
+        txt('bold', 7.5, 74.6, 85, ['{{ w.homeCeremony | uppercase }}', 'VÀO LÚC {{ w.homeTime | uppercase }}'],
+            fs=SZ(3500), lh=SZ(3255), ls=SZ(318), d=.2),
+        txt('bold', 7.5, 83.6, 85, ['{{ w.dateSlash }}'], fs=SZ(5400), lh=SZ(5022), ls=SZ(490), d=.3),
+        txt('bold', 7.5, 91.0, 85, ['{{ w.lunarFull }}'], fs=SZ(2600), lh=SZ(2418), ls=SZ(236), d=.4),
     ]),
 ]))
 
@@ -301,7 +300,7 @@ for i, (key, label, cmps) in enumerate(slides, 1):
         <p class="report-m__person"><span class="report-m__name">{{ w.groomFullName }}</span><span class="report-m__rank">{{ w.groomRank }}</span></p>
         <p class="report-m__person"><span class="report-m__name">{{ w.brideFullName }}</span><span class="report-m__rank">{{ w.brideRank }}</span></p>
       </div>
-      <p class="report-m__ceremony" data-reveal="up"><span class="report-m__when">{{ w.homeCeremony }}<br />vào lúc {{ w.homeTime }}</span><span class="report-m__date">{{ w.dateSlash }}</span><span class="report-m__lunar">{{ w.lunarFull }}</span></p>
+      <p class="report-m__ceremony" data-reveal="up">{{ w.homeCeremony | uppercase }}<br />VÀO LÚC {{ w.homeTime | uppercase }}<span class="report-m__date">{{ w.dateSlash }}</span><span class="report-m__lunar">{{ w.lunarFull }}</span></p>
     </div>''')
     if key == 'quote':
         # Điện thoại: slide ngang quá nhỏ để đọc, nên xếp tấm vé dọc với cùng ảnh & chữ
