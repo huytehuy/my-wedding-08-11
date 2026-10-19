@@ -142,8 +142,6 @@ slides.append(('quote', 'Lời nhắn', [
 ]))
 
 # ---------- 4 · CÔ DÂU CHÚ RỂ ----------
-# Tên hai bên dùng hộp cùng bề rộng (33.47) và cách đều khung ảnh -> cùng cỡ chữ, cân hai bên
-NAME = dict(fs=SZ(11000), lh=SZ(15400))
 slides.append(('couple', 'Cô dâu chú rể', [
     # Khung oval như slide, nhưng viền vàng mảnh 2 lớp + 2 ngôi sao (giống khung ngày ở trang bìa)
     cmp('c-frame', 36.83, 22.32, 26.33, 58.83, [
@@ -155,12 +153,6 @@ slides.append(('couple', 'Cô dâu chú rể', [
             '<img class="oval-star oval-star--b" src="assets/img/star.webp" alt="" />',
             36.83, 22.32, 26.33, 58.83),
     ], reveal='fade'),
-    cmp('c-name c-name--groom', 1.03, 38.82, 33.47, 18.40, [
-        txt('hand', 1.03, 38.82, 33.47, ['{{ w.groomFull }}'], d=.2, **NAME),
-    ]),
-    cmp('c-name c-name--bride', 65.47, 38.82, 33.47, 18.40, [
-        txt('hand', 65.47, 38.82, 33.47, ['{{ w.brideFull }}'], d=.35, **NAME),
-    ]),
 ]))
 
 # ---------- 5 · BÁO TIN ----------

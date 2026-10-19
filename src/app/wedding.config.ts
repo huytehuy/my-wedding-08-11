@@ -32,7 +32,7 @@ export const WEDDING = {
   groomHome: 'Phường Trảng Dài, TP Đồng Nai',
   brideHome: 'Phường Tam Hiệp, TP Đồng Nai',
   homeCeremony: 'Hôn lễ được cử hành tại tư gia',
-  homeTime: '09h00',
+  homeTime: '09:00',
   lunarFull: '(Nhằm ngày 30 Tháng 09 Năm Bính Ngọ)',
 
   /** Tên hiển thị khi link không kèm tên khách */

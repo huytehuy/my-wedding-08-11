@@ -337,7 +337,7 @@ img.el {
   position: relative;
   width: 100%;
   max-width: 520px;
-  margin: 40px 0 70px;
+  margin: 40px 0 130px;
 }
 .quote-m__text {
   position: relative;
@@ -367,9 +367,10 @@ img.el {
   z-index: 2;
   right: 0;
   bottom: 0;
-  width: 46%;
+  /* nhỏ hơn và hạ xuống mép dưới vé để không che dòng cuối của lời nhắn */
+  width: 40%;
   rotate: -37.95deg;
-  translate: 26% 52%;
+  translate: 30% 80%;
 }
 
 /* ======================================================
@@ -390,8 +391,6 @@ img.el {
 :host(.is-open) .slide--hero .env { translate: 0 30%; }
 
 .c-frame { width: 78%; }
-/* Điện thoại: chỉ để khung ảnh, không hiện tên hai bên (máy tính vẫn có tên hai bên như slide) */
-.c-name { display: none; }
 
 /* Tên khách: khối trái tim rộng hơn slide cũ -> trên điện thoại phóng chữ lên cho dễ đọc */
 .invite__guest {
@@ -443,7 +442,6 @@ img.el {
     font-size: calc(var(--fs) * 1cqw);
     line-height: calc(var(--lh) * 1cqw);
   }
-  .c-name { display: block; }
 }
 
 /* ---------- Bấm ảnh để xem lớn ---------- */
