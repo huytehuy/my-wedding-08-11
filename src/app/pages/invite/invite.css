@@ -110,21 +110,6 @@ img.el {
 .intro--2 { animation-delay: 1.6s; }
 @keyframes introFade { from { opacity: 0; } to { opacity: 1; } }
 
-/* Chú thích bấm mở thiệp */
-.hero-hint {
-  margin: 0;
-  color: var(--cream);
-  font-family: "TH Sarabun New", sans-serif;
-  font-size: 19px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  text-align: center;
-  animation: introFade 1s 2.6s both, hintBlink 2.2s 3.6s ease-in-out infinite;
-  transition: opacity .4s;
-}
-@keyframes hintBlink { 50% { opacity: .45; } }
-:host(.is-open) .hero-hint { animation: none; opacity: 0; }
-
 /* Phong bì: thân + phần trong + nắp (lật mở) + con dấu */
 .c-envelope {
   z-index: 1;
@@ -450,15 +435,6 @@ img.el {
     min-height: 0;
   }
   :host(.is-open) .slide--hero .env { translate: 0 40%; }
-  .hero-hint {
-    position: absolute;
-    z-index: 3;
-    left: 0;
-    right: 0;
-    bottom: 3%;
-    color: var(--wine);
-    font-size: 1.6cqw;
-  }
   .c-quote { display: block; }
   .quote-m { display: none; }
   .c-report { display: block; }

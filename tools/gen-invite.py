@@ -274,8 +274,6 @@ for i, (key, label, cmps) in enumerate(slides, 1):
     out.append('  <section class="slide slide--%s">' % key)
     for c in cmps:
         out.append(render_cmp(c))
-    if key == 'hero':
-        out.append('    <p class="hero-hint">Chạm vào con dấu để mở thiệp</p>')
     if key == 'report':
         # Điện thoại: bảng ngang co lại thì chữ quá nhỏ, nên xếp lại thành cột với cùng nội dung
         out.append('''    <div class="report-m">
