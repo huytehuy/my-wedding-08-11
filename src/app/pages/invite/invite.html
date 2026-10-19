@@ -11,9 +11,9 @@
       <p class="el t t--c script hero__title" style="--x:0;--y:0;--w:100;--fs:16.738;--lh:23.433;--ls:0" ><span class="ln"><span class="write">Lễ thành hôn</span></span></p>
       <img class="el intro intro--1" src="assets/img/date-oval.webp" alt="" style="--x:37.381;--y:46.344;--w:23.125;--h:17.551"  />
       <p class="el t t--c intro intro--1" style="--x:37.142;--y:45.711;--w:23.617;--fs:5.372;--lh:7.521;--ls:0" ><span class="ln">{{ w.dateText }}</span></p>
-      <p class="el t t--c intro intro--2" style="--x:24.682;--y:66.034;--w:50.652;--fs:7.348;--lh:7.202;--ls:0.382" ><span class="ln">{{ w.groom | uppercase }} &amp; {{ w.bride | uppercase }}</span></p>
+      <p class="el t t--c intro intro--2" style="--x:13.239;--y:66.034;--w:73.919;--fs:7.348;--lh:7.202;--ls:0.382" ><span class="ln">{{ w.groomFull | uppercase }} &amp; {{ w.brideFull | uppercase }}</span></p>
     </div>
-    <div class="cmp c-envelope" style="--x:29.43;--y:58.53;--w:39.82;--ar:1.499;--r:-6.64deg">
+    <div class="cmp c-envelope" style="--x:30.68;--y:50.03;--w:38.88;--ar:1.498;--r:-6.64deg">
       <button class="env" type="button" aria-label="Mở thiệp" (click)="open()" [disabled]="opened()">
         <img class="env__body" src="assets/img/envelope-body.webp" alt="" />
         <span class="env__inside" aria-hidden="true"></span>
@@ -46,7 +46,7 @@
       <img class="el " src="assets/img/ticket.svg" alt="" style="--x:14.29;--y:12.95;--w:71.42;--h:74.11" data-reveal="fade" />
       <img class="el " src="assets/img/bow.webp" alt="" style="--x:2.83;--y:6.36;--w:32.04;--h:87.28;--d:0.2s" data-reveal="fade" />
       <img class="el " src="assets/img/rose.webp" alt="" style="--x:65.91;--y:61.59;--w:46.28;--h:88.66;--r:-37.95deg;--d:0.3s" data-reveal="fade" />
-      <p class="el t t--l t--wrap quote__text" style="--x:34.87;--y:34.35;--w:36.76;--fs:2.585;--lh:2.559;--ls:0.235" data-reveal="up"><span class="ln">Chỉ cần là đúng người, muộn một chút cũng không sao. Thật may mắn vì chúng ta đã tìm thấy nhau vào những tháng năm rực rỡ nhất. Cảm ơn bạn vì đã luôn ở đây, đồng hành và minh chứng cho tình yêu của chúng mình.</span></p>
+      <p class="el t t--l t--wrap italic quote__text" style="--x:34.87;--y:34.35;--w:36.76;--fs:2.585;--lh:2.559;--ls:0.235" data-reveal="up"><span class="ln">Chỉ cần là đúng người, muộn một chút cũng không sao. Thật may mắn vì chúng ta đã tìm thấy nhau vào những tháng năm rực rỡ nhất. Cảm ơn bạn vì đã luôn ở đây, đồng hành và minh chứng cho tình yêu của chúng mình.</span></p>
     </div>
     <div class="quote-m">
       <img class="quote-m__bow" src="assets/img/bow.webp" alt="" data-reveal="fade" style="--d:.2s" />
@@ -57,29 +57,72 @@
 
   <!-- 4 · Cô dâu chú rể -->
   <section class="slide slide--couple">
-    <div class="cmp c-frame" style="--x:32.82;--y:16.44;--w:34.36;--ar:0.865" data-reveal="fade">
-      <div class="el" style="--x:0;--y:0;--w:100;--h:100"><span class="arch arch--outer"></span><span class="arch arch--inner"></span><div class="arch-photo zoomable" (click)="view('photo-couple.webp')"><img src="assets/img/photo-couple.webp" alt="{{ w.groom }} và {{ w.bride }}" /></div></div>
+    <div class="cmp c-frame" style="--x:36.83;--y:22.32;--w:26.33;--ar:0.796" data-reveal="fade">
+      <div class="el" style="--x:0;--y:0;--w:100;--h:100"><div class="oval-photo zoomable" (click)="view('photo-couple.webp')"><img src="assets/img/photo-couple.webp" alt="{{ w.groomFull }} và {{ w.brideFull }}" /></div><span class="oval-ring"></span></div>
     </div>
-    <div class="cmp c-name c-name--groom" style="--x:2.72;--y:38.17;--w:30.1;--ar:2.197">
-      <p class="el t t--c hand" style="--x:0;--y:0;--w:100;--d:0.2s;--fs:33.705;--lh:47.188;--ls:0" data-reveal="up"><span class="ln">{{ w.groom }}</span></p>
+    <div class="cmp c-name c-name--groom" style="--x:1.03;--y:38.82;--w:33.47;--ar:3.234">
+      <p class="el t t--c hand" style="--x:0;--y:0;--w:100;--d:0.2s;--fs:22.823;--lh:31.952;--ls:0" data-reveal="up"><span class="ln">{{ w.groomFull }}</span></p>
     </div>
-    <div class="cmp c-name c-name--bride" style="--x:67.18;--y:36.47;--w:33.47;--ar:2.452">
-      <p class="el t t--c hand" style="--x:0;--y:0;--w:100;--d:0.35s;--fs:30.22;--lh:42.308;--ls:0" data-reveal="up"><span class="ln">{{ w.bride }}</span></p>
+    <div class="cmp c-name c-name--bride" style="--x:65.47;--y:38.82;--w:33.47;--ar:3.234">
+      <p class="el t t--c hand" style="--x:0;--y:0;--w:100;--d:0.35s;--fs:22.823;--lh:31.952;--ls:0" data-reveal="up"><span class="ln">{{ w.brideFull }}</span></p>
     </div>
     <span class="couple-amp hand" aria-hidden="true" data-reveal="up" style="--d:.3s">&amp;</span>
   </section>
 
-  <!-- 5 · Trân trọng kính mời -->
-  <section class="slide slide--invite">
-    <div class="cmp c-invite" style="--x:21.3;--y:11.22;--w:57.4;--ar:1.276">
-      <img class="el " src="assets/img/heart.webp" alt="" style="--x:7.909;--y:0;--w:82.7;--h:100" data-reveal="fade" />
-      <img class="el " src="assets/img/star.webp" alt="" style="--x:45.836;--y:43.163;--w:8.328;--h:10.637;--d:0.4s" data-reveal="fade" />
-      <p class="el t t--c script" style="--x:0;--y:18.25;--w:100;--d:0.2s;--fs:10.867;--lh:10.758;--ls:0.988" data-reveal="write"><span class="ln">Trân trọng kính mời</span></p>
-      <p class="el t t--c t--wrap hand invite__guest" style="--x:0;--y:56.6;--w:100;--d:0.6s;--fs:8.014;--lh:9.408;--ls:0" data-reveal="up"><span class="ln">{{ guest }}</span></p>
+  <!-- 5 · Báo tin -->
+  <section class="slide slide--report">
+    <div class="cmp c-report" style="--x:0;--y:0;--w:100;--ar:1.778">
+      <div class="el" style="--x:7.5;--y:4.84;--w:85;--h:31.6"><span class="lines" data-reveal="fade"></span></div>
+      <p class="el t t--c" style="--x:7.5;--y:7.6;--w:42.5;--d:0.1s;--fs:2.935;--lh:2.73;--ls:0.267" data-reveal="up"><span class="ln">Ông Bà</span></p>
+      <p class="el t t--c" style="--x:50;--y:7.6;--w:42.5;--d:0.1s;--fs:2.935;--lh:2.73;--ls:0.267" data-reveal="up"><span class="ln">Ông Bà</span></p>
+      <p class="el t t--c bold" style="--x:7.5;--y:15.3;--w:42.5;--d:0.2s;--fs:2.935;--lh:2.73;--ls:0.267" data-reveal="up"><span class="ln">{{ w.groomParents[0] }}</span><span class="ln">&amp;</span><span class="ln">{{ w.groomParents[1] }}</span></p>
+      <p class="el t t--c bold" style="--x:50;--y:15.3;--w:42.5;--d:0.2s;--fs:2.935;--lh:2.73;--ls:0.267" data-reveal="up"><span class="ln">{{ w.brideParents[0] }}</span><span class="ln">&amp;</span><span class="ln">{{ w.brideParents[1] }}</span></p>
+      <p class="el t t--c" style="--x:7.5;--y:30.4;--w:42.5;--d:0.3s;--fs:1.944;--lh:1.808;--ls:0.176" data-reveal="up"><span class="ln">{{ w.groomHome }}</span></p>
+      <p class="el t t--c" style="--x:50;--y:30.4;--w:42.5;--d:0.3s;--fs:1.944;--lh:1.808;--ls:0.176" data-reveal="up"><span class="ln">{{ w.brideHome }}</span></p>
+      <p class="el t t--c bold" style="--x:7.5;--y:39.6;--w:85;--d:0.2s;--fs:2.429;--lh:2.259;--ls:0.221" data-reveal="up"><span class="ln">TRÂN TRỌNG BÁO TIN</span><span class="ln">LỄ THÀNH HÔN CỦA CON CHÚNG TÔI</span></p>
+      <div class="el" style="--x:7.5;--y:51.7;--w:85;--h:18.3"><span class="lines" data-reveal="fade" style="--d:.3s"></span></div>
+      <p class="el t t--c hand bold" style="--x:7.5;--y:52.6;--w:42.5;--d:0.35s;--fs:4.653;--lh:5.764;--ls:0.208" data-reveal="up"><span class="ln">{{ w.groomFullName }}</span></p>
+      <p class="el t t--c hand bold" style="--x:50;--y:52.6;--w:42.5;--d:0.35s;--fs:4.653;--lh:5.764;--ls:0.208" data-reveal="up"><span class="ln">{{ w.brideFullName }}</span></p>
+      <p class="el t t--c hand bold" style="--x:7.5;--y:63.9;--w:42.5;--d:0.45s;--fs:1.963;--lh:2.153;--ls:0.069" data-reveal="up"><span class="ln">{{ w.groomRank }}</span></p>
+      <p class="el t t--c hand bold" style="--x:50;--y:63.9;--w:42.5;--d:0.45s;--fs:1.963;--lh:2.153;--ls:0.069" data-reveal="up"><span class="ln">{{ w.brideRank }}</span></p>
+      <p class="el t t--c bold" style="--x:7.5;--y:78.6;--w:85;--d:0.2s;--fs:2.033;--lh:1.89;--ls:0.185" data-reveal="up"><span class="ln">{{ w.homeCeremony | uppercase }}</span><span class="ln">VÀO LÚC {{ w.homeTime | uppercase }}</span></p>
+      <p class="el t t--c bold" style="--x:7.5;--y:85.7;--w:85;--d:0.3s;--fs:3.144;--lh:2.924;--ls:0.286" data-reveal="up"><span class="ln">{{ w.dateSlash }}</span></p>
+      <p class="el t t--c bold" style="--x:7.5;--y:92.4;--w:85;--d:0.4s;--fs:1.477;--lh:1.374;--ls:0.134" data-reveal="up"><span class="ln">{{ w.lunarFull }}</span></p>
+    </div>
+    <div class="report-m">
+      <div class="report-m__parents" data-reveal="fade">
+        <div class="report-m__col">
+          <p class="report-m__label">Ông Bà</p>
+          <p class="report-m__names">{{ w.groomParents[0] }}<br />&amp;<br />{{ w.groomParents[1] }}</p>
+          <p class="report-m__home">{{ w.groomHome.split(', ')[0] }},<br />{{ w.groomHome.split(', ')[1] }}</p>
+        </div>
+        <div class="report-m__col">
+          <p class="report-m__label">Ông Bà</p>
+          <p class="report-m__names">{{ w.brideParents[0] }}<br />&amp;<br />{{ w.brideParents[1] }}</p>
+          <p class="report-m__home">{{ w.brideHome.split(', ')[0] }},<br />{{ w.brideHome.split(', ')[1] }}</p>
+        </div>
+      </div>
+      <p class="report-m__news" data-reveal="up">TRÂN TRỌNG BÁO TIN<br />LỄ THÀNH HÔN CỦA CON CHÚNG TÔI</p>
+      <div class="report-m__couple" data-reveal="fade" style="--d:.15s">
+        <p class="report-m__person"><span class="report-m__name">{{ w.groomFullName }}</span><span class="report-m__rank">{{ w.groomRank }}</span></p>
+        <p class="report-m__person"><span class="report-m__name">{{ w.brideFullName }}</span><span class="report-m__rank">{{ w.brideRank }}</span></p>
+      </div>
+      <p class="report-m__ceremony" data-reveal="up">{{ w.homeCeremony | uppercase }}<br />VÀO LÚC {{ w.homeTime | uppercase }}<span class="report-m__date">{{ w.dateSlash }}</span><span class="report-m__lunar">{{ w.lunarFull }}</span></p>
     </div>
   </section>
 
-  <!-- 6 · Thời gian -->
+  <!-- 6 · Trân trọng kính mời -->
+  <section class="slide slide--invite">
+    <div class="cmp c-invite" style="--x:10.87;--y:11.22;--w:77.79;--ar:1.755">
+      <div class="el crop " style="--x:0;--y:0;--w:100;--h:86.608;--cl:0;--ct:-32.265;--cr:0;--cb:-59.87" data-reveal="fade"><img src="assets/img/heart.webp" alt="" /></div>
+      <img class="el " src="assets/img/star.webp" alt="" style="--x:47.23;--y:43.831;--w:6.145;--h:10.802;--d:0.4s" data-reveal="fade" />
+      <p class="el t t--c script" style="--x:13.408;--y:18.533;--w:73.788;--d:0.2s;--fs:8.018;--lh:7.938;--ls:0.729" data-reveal="write"><span class="ln">Trân trọng kính mời</span></p>
+      <p class="el t t--c t--wrap hand invite__guest" style="--x:5.631;--y:59.634;--w:89.343;--d:0.6s;--fs:5.913;--lh:6.942;--ls:0" data-reveal="up"><span class="ln">{{ guest }}</span></p>
+      <p class="el t t--c" style="--x:5.631;--y:92.625;--w:89.343;--d:0.8s;--fs:4.145;--lh:3.855;--ls:0.377" data-reveal="up"><span class="ln">Đến dự buổi tiệc chung vui cùng gia đình chúng tôi</span></p>
+    </div>
+  </section>
+
+  <!-- 7 · Thời gian -->
   <section class="slide slide--time">
     <div class="cmp c-time-info" style="--x:7;--y:25.9;--w:31.26;--ar:0.996">
       <p class="el t t--c script" style="--x:0;--y:0;--w:100;--fs:19.954;--lh:19.754;--ls:1.815" data-reveal="write"><span class="ln">Thời gian</span></p>
@@ -94,7 +137,7 @@
     </div>
   </section>
 
-  <!-- 7 · Địa điểm -->
+  <!-- 8 · Địa điểm -->
   <section class="slide slide--place">
     <div class="cmp c-place" style="--x:14.05;--y:11.22;--w:71.91;--ar:1.598">
       <img class="el " src="assets/img/heart.webp" alt="" style="--x:16.395;--y:0;--w:66.013;--h:100" data-reveal="fade" />
@@ -105,7 +148,7 @@
     </div>
   </section>
 
-  <!-- 8 · Khoảnh khắc chung đôi -->
+  <!-- 9 · Khoảnh khắc chung đôi -->
   <section class="slide slide--album">
     <div class="cmp c-album-title" style="--x:6.79;--y:13.03;--w:43.21;--ar:10.325">
       <p class="el t t--l hand" style="--x:0;--y:0;--w:100;--fs:9.37;--lh:9.276;--ls:0.852" data-reveal="up"><span class="ln">Khoảnh khắc chung đôi</span></p>
@@ -121,17 +164,12 @@
     </div>
   </section>
 
-  <!-- 9 · Cảm ơn -->
+  <!-- 10 · Cảm ơn -->
   <section class="slide slide--thanks">
-    <div class="cmp c-thanks" style="--x:11.6;--y:17.16;--w:76.79;--ar:2.022">
-      <p class="el t t--c script" style="--x:1.432;--y:0;--w:97.148;--fs:8.123;--lh:8.041;--ls:0.739" data-reveal="write"><span class="ln">Hân hạnh được đón tiếp</span></p>
-      <p class="el t t--c" style="--x:0;--y:21.161;--w:100;--d:0.2s;--fs:3.823;--lh:3.555;--ls:0.347" data-reveal="up"><span class="ln">Sự hiện diện của quý khách là món quà vô giá đối với gia đình!</span></p>
-      <div class="el" style="--x:12.905;--y:35.925;--w:74.202;--h:46.987"><span class="lines" data-reveal="fade" style="--d:.3s"></span></div>
-      <p class="el t t--c" style="--x:16.343;--y:42.337;--w:26.071;--d:0.35s;--fs:3.823;--lh:3.555;--ls:0.347" data-reveal="up"><span class="ln">Nhà trai</span></p>
-      <p class="el t t--c" style="--x:57.599;--y:42.337;--w:26.071;--d:0.35s;--fs:3.823;--lh:3.555;--ls:0.347" data-reveal="up"><span class="ln">Nhà gái</span></p>
-      <p class="el t t--c bold" style="--x:8.751;--y:53.058;--w:41.255;--d:0.45s;--fs:3.823;--lh:3.555;--ls:0.347" data-reveal="up"><span class="ln">{{ w.groomParents[0] }}</span><span class="ln">&amp;</span><span class="ln">{{ w.groomParents[1] }}</span></p>
-      <p class="el t t--c bold" style="--x:49.798;--y:53.058;--w:41.659;--d:0.45s;--fs:3.823;--lh:3.555;--ls:0.347" data-reveal="up"><span class="ln">{{ w.brideParents[0] }}</span><span class="ln">&amp;</span><span class="ln">{{ w.brideParents[1] }}</span></p>
-      <p class="el t t--c" style="--x:19.729;--y:91.426;--w:60.568;--d:0.3s;--fs:4.189;--lh:3.896;--ls:0.381" data-reveal="up"><span class="ln">CHÂN THÀNH CẢM ƠN!</span></p>
+    <div class="cmp c-thanks" style="--x:11.6;--y:35.57;--w:76.79;--ar:2.779">
+      <p class="el t t--c script" style="--x:1.432;--y:0;--w:97.148;--fs:9.66;--lh:9.563;--ls:0.879" data-reveal="write"><span class="ln">Hân hạnh được đón tiếp</span></p>
+      <p class="el t t--c" style="--x:0;--y:59.711;--w:100;--d:0.2s;--fs:3.823;--lh:3.555;--ls:0.347" data-reveal="up"><span class="ln">Sự hiện diện của quý khách là món quà vô giá</span><span class="ln">đối với gia đình chúng tôi!</span></p>
+      <p class="el t t--c" style="--x:19.729;--y:88.213;--w:60.568;--d:0.3s;--fs:4.189;--lh:3.896;--ls:0.381" data-reveal="up"><span class="ln">CHÂN THÀNH CẢM ƠN!</span></p>
     </div>
   </section>
 

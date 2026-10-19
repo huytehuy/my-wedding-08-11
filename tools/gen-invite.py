@@ -108,10 +108,10 @@ slides.append(('hero', 'Bìa', [
             fs=SZ(15165), lh=SZ(21231), reveal=None),
         img('intro intro--1', 'date-oval.webp', 42.06, 30.42, 14.55, 8.04, reveal=None),
         txt('intro intro--1', 41.91, 30.13, 14.86, ['{{ w.dateText }}'], fs=SZ(4867), lh=SZ(6814), reveal=None),
-        txt('intro intro--2', 34.07, 39.44, 31.87, ['{{ w.groom | uppercase }} &amp; {{ w.bride | uppercase }}'],
+        txt('intro intro--2', 26.87, 39.44, 46.51, ['{{ w.groomFull | uppercase }} &amp; {{ w.brideFull | uppercase }}'],
             fs=SZ(6658), lh=SZ(6525), ls=SZ(346), reveal=None),
     ]),
-    cmp('c-envelope', 29.43, 58.53, 39.82, 47.23, [], rot=-6.64, inner_open=env_inner),
+    cmp('c-envelope', 30.68, 50.03, 38.88, 46.13, [], rot=-6.64, inner_open=env_inner),
 ]))
 
 # ---------- 2 · CÂU CHUYỆN ----------
@@ -137,40 +137,71 @@ slides.append(('quote', 'Lời nhắn', [
         img('', 'ticket.svg', 14.29, 12.95, 71.42, 74.11),
         img('', 'bow.webp', 2.83, 6.36, 32.04, 87.28, d=.2),
         img('', 'rose.webp', 65.91, 61.59, 46.28, 88.66, rot=-37.95, d=.3),
-        txt('quote__text', 34.87, 34.35, 36.76, [QUOTE], fs=SZ(3722), lh=SZ(3685), ls=SZ(338), align='l', wrap=True),
+        txt('italic quote__text', 34.87, 34.35, 36.76, [QUOTE], fs=SZ(3722), lh=SZ(3685), ls=SZ(338), align='l', wrap=True),
     ]),
 ]))
 
 # ---------- 4 · CÔ DÂU CHÚ RỂ ----------
+# Tên hai bên dùng hộp cùng bề rộng (33.47) và cách đều khung ảnh -> cùng cỡ chữ, cân hai bên
+NAME = dict(fs=SZ(11000), lh=SZ(15400))
 slides.append(('couple', 'Cô dâu chú rể', [
-    # Khung vòm cổng mảnh (thay cho khung vàng chạm trổ của slide gốc), giữ nguyên vị trí & kích thước khung
-    cmp('c-frame', 32.82, 16.44, 34.36, 70.61, [
-        raw('<span class="arch arch--outer"></span>'
-            '<span class="arch arch--inner"></span>'
-            '<div class="arch-photo zoomable" (click)="view(' + "'photo-couple.webp'" + ')">'
-            '<img src="assets/img/photo-couple.webp" alt="{{ w.groom }} và {{ w.bride }}" /></div>',
-            32.82, 16.44, 34.36, 70.61),
+    # Khung ảnh oval viền trắng: viền dày 196850/6062980 bề ngang khung, ảnh lót dưới viền
+    cmp('c-frame', 36.83, 22.32, 26.33, 58.83, [
+        raw('<div class="oval-photo zoomable" (click)="view(' + "'photo-couple.webp'" + ')">'
+            '<img src="assets/img/photo-couple.webp" alt="{{ w.groomFull }} và {{ w.brideFull }}" /></div>'
+            '<span class="oval-ring"></span>',
+            36.83, 22.32, 26.33, 58.83),
     ], reveal='fade'),
-    cmp('c-name c-name--groom', 2.72, 38.17, 30.10, 24.36, [
-        txt('hand', 2.72, 38.17, 30.10, ['{{ w.groom }}'], fs=SZ(14609), lh=SZ(20453), d=.2),
+    cmp('c-name c-name--groom', 1.03, 38.82, 33.47, 18.40, [
+        txt('hand', 1.03, 38.82, 33.47, ['{{ w.groomFull }}'], d=.2, **NAME),
     ]),
-    cmp('c-name c-name--bride', 67.18, 36.47, 33.47, 24.27, [
-        txt('hand', 67.18, 36.47, 33.47, ['{{ w.bride }}'], fs=SZ(14565), lh=SZ(20391), d=.35),
+    cmp('c-name c-name--bride', 65.47, 38.82, 33.47, 18.40, [
+        txt('hand', 65.47, 38.82, 33.47, ['{{ w.brideFull }}'], d=.35, **NAME),
     ]),
 ]))
 
-# ---------- 5 · TRÂN TRỌNG KÍNH MỜI ----------
+# ---------- 5 · BÁO TIN ----------
+# Slide gốc hai bảng lệch tâm (vạch giữa ở 48.1% và 53%), tên cô dâu chú rể tràn khỏi bảng và
+# chữ "Trưởng Nam" đè lên tên -> ở đây cả hai bảng cùng rộng 7.5..92.5, vạch giữa đúng 50%.
+REPORT = dict(fs=SZ(4227), lh=SZ(3931), ls=SZ(384))
+SMALL = dict(fs=SZ(2799), lh=SZ(2603), ls=SZ(254))
+COL_L, COL_R, COL_W = 7.5, 50, 42.5
+slides.append(('report', 'Báo tin', [
+    cmp('c-report', 0, 0, 100, 100, [
+        raw('<span class="lines" data-reveal="fade"></span>', 7.5, 4.84, 85, 31.6),
+        txt('', COL_L, 7.6, COL_W, ['Ông Bà'], d=.1, **REPORT),
+        txt('', COL_R, 7.6, COL_W, ['Ông Bà'], d=.1, **REPORT),
+        txt('bold', COL_L, 15.3, COL_W, ['{{ w.groomParents[0] }}', '&amp;', '{{ w.groomParents[1] }}'], d=.2, **REPORT),
+        txt('bold', COL_R, 15.3, COL_W, ['{{ w.brideParents[0] }}', '&amp;', '{{ w.brideParents[1] }}'], d=.2, **REPORT),
+        txt('', COL_L, 30.4, COL_W, ['{{ w.groomHome }}'], d=.3, **SMALL),
+        txt('', COL_R, 30.4, COL_W, ['{{ w.brideHome }}'], d=.3, **SMALL),
+        txt('bold', 7.5, 39.6, 85, ['TRÂN TRỌNG BÁO TIN', 'LỄ THÀNH HÔN CỦA CON CHÚNG TÔI'],
+            fs=SZ(3498), lh=SZ(3253), ls=SZ(318), d=.2),
+        raw('<span class="lines" data-reveal="fade" style="--d:.3s"></span>', 7.5, 51.7, 85, 18.3),
+        txt('hand bold', COL_L, 52.6, COL_W, ['{{ w.groomFullName }}'], fs=SZ(6700), lh=SZ(8300), ls=SZ(300), d=.35),
+        txt('hand bold', COL_R, 52.6, COL_W, ['{{ w.brideFullName }}'], fs=SZ(6700), lh=SZ(8300), ls=SZ(300), d=.35),
+        txt('hand bold', COL_L, 63.9, COL_W, ['{{ w.groomRank }}'], fs=SZ(2827), lh=SZ(3100), ls=SZ(100), d=.45),
+        txt('hand bold', COL_R, 63.9, COL_W, ['{{ w.brideRank }}'], fs=SZ(2827), lh=SZ(3100), ls=SZ(100), d=.45),
+        txt('bold', 7.5, 78.6, 85, ['{{ w.homeCeremony | uppercase }}', 'VÀO LÚC {{ w.homeTime | uppercase }}'],
+            fs=SZ(2927), lh=SZ(2722), ls=SZ(266), d=.2),
+        txt('bold', 7.5, 85.7, 85, ['{{ w.dateSlash }}'], fs=SZ(4527), lh=SZ(4210), ls=SZ(412), d=.3),
+        txt('bold', 7.5, 92.4, 85, ['{{ w.lunarFull }}'], fs=SZ(2127), lh=SZ(1978), ls=SZ(193), d=.4),
+    ]),
+]))
+
+# ---------- 6 · TRÂN TRỌNG KÍNH MỜI ----------
 slides.append(('invite', 'Trân trọng kính mời', [
-    cmp('c-invite', 21.30, 11.22, 57.40, 80, [
-        img('', 'heart.webp', 25.84, 11.22, 47.47, 80),
+    cmp('c-invite', 10.87, 11.22, 77.79, 78.78, [
+        # trái tim mờ phóng to, chỉ lấy dải giữa (fillRect t-32.265 b-59.87)
+        img('', 'heart.webp', 10.87, 11.22, 77.79, 68.23, crop=(0, -32.265, 0, -59.87)),
         img('', 'star.webp', 47.61, 45.75, 4.78, 8.51, d=.4),
         txt('script', 21.30, 25.82, 57.40, ['Trân trọng kính mời'], reveal='write', d=.2, **TITLE),
         # tên khách: đặt vào khoảng trống dưới ngôi sao của slide
-        txt('hand invite__guest', 21.30, 56.5, 57.40, ['{{ guest }}'], fs=4.6, lh=5.4, wrap=True, d=.6),
+        txt('hand invite__guest', 15.25, 58.2, 69.50, ['{{ guest }}'], fs=4.6, lh=5.4, wrap=True, d=.6),
+        txt('', 15.25, 84.19, 69.50, ['Đến dự buổi tiệc chung vui cùng gia đình chúng tôi'], d=.8, **BODY),
     ]),
 ]))
-
-# ---------- 6 · THỜI GIAN ----------
+# ---------- 7 · THỜI GIAN ----------
 slides.append(('time', 'Thời gian', [
     cmp('c-time-info', 7.00, 25.90, 31.26, 55.78, [
         txt('script', 7.00, 25.90, 31.26, ['Thời gian'], reveal='write', **TITLE),
@@ -186,7 +217,7 @@ slides.append(('time', 'Thời gian', [
     ]),
 ]))
 
-# ---------- 7 · ĐỊA ĐIỂM ----------
+# ---------- 8 · ĐỊA ĐIỂM ----------
 slides.append(('place', 'Địa điểm', [
     cmp('c-place', 14.05, 11.22, 71.91, 80, [
         img('', 'heart.webp', 25.84, 11.22, 47.47, 80),
@@ -197,7 +228,7 @@ slides.append(('place', 'Địa điểm', [
     ]),
 ]))
 
-# ---------- 8 · ALBUM ----------
+# ---------- 9 · ALBUM ----------
 PH = (28.69, 59.98)
 slides.append(('album', 'Khoảnh khắc chung đôi', [
     cmp('c-album-title', 6.79, 13.03, 43.21, 7.44, [
@@ -214,16 +245,14 @@ slides.append(('album', 'Khoảnh khắc chung đôi', [
     ], reveal='fade', d=.3),
 ]))
 
-# ---------- 9 · CẢM ƠN ----------
+# ---------- 10 · CẢM ƠN ----------
+# Slide gốc đặt tiêu đề & lời cảm ơn lệch phải (tâm 52-53%); ở đây canh đúng giữa slide
 slides.append(('thanks', 'Cảm ơn', [
-    cmp('c-thanks', 11.60, 17.16, 76.79, 67.53, [
-        txt('script', 12.70, 17.16, 74.60, ['Hân hạnh được đón tiếp'], reveal='write', **TITLE),
-        txt('', 11.60, 31.45, 76.79, ['Sự hiện diện của quý khách là món quà vô giá đối với gia đình!'], d=.2, **THANKS),
-        raw('<span class="lines" data-reveal="fade" style="--d:.3s"></span>', 21.51, 41.42, 56.98, 31.73),
-        txt('', 24.15, 45.75, 20.02, ['Nhà trai'], d=.35, **THANKS),
-        txt('', 55.83, 45.75, 20.02, ['Nhà gái'], d=.35, **THANKS),
-        txt('bold', 18.32, 52.99, 31.68, ['{{ w.groomParents[0] }}', '&amp;', '{{ w.groomParents[1] }}'], d=.45, **THANKS),
-        txt('bold', 49.84, 52.99, 31.99, ['{{ w.brideParents[0] }}', '&amp;', '{{ w.brideParents[1] }}'], d=.45, **THANKS),
+    cmp('c-thanks', 11.60, 35.57, 76.79, 49.12, [
+        txt('script', 12.70, 35.57, 74.60, ['Hân hạnh được đón tiếp'], reveal='write',
+            fs=SZ(10682), lh=SZ(10575), ls=SZ(972)),
+        txt('', 11.60, 64.9, 76.79, ['Sự hiện diện của quý khách là món quà vô giá', 'đối với gia đình chúng tôi!'],
+            d=.2, **THANKS),
         txt('', 26.75, 78.90, 46.51, ['CHÂN THÀNH CẢM ƠN!'], fs=SZ(4632), lh=SZ(4308), ls=SZ(421), d=.3),
     ]),
 ]))
@@ -244,6 +273,28 @@ for i, (key, label, cmps) in enumerate(slides, 1):
     if key == 'couple':
         # Điện thoại: tên nằm dưới khung ảnh thành 1 hàng "Bảo & Hương"
         out.append('    <span class="couple-amp hand" aria-hidden="true" data-reveal="up" style="--d:.3s">&amp;</span>')
+    if key == 'report':
+        # Điện thoại: bảng ngang co lại thì chữ quá nhỏ, nên xếp lại thành cột với cùng nội dung
+        out.append('''    <div class="report-m">
+      <div class="report-m__parents" data-reveal="fade">
+        <div class="report-m__col">
+          <p class="report-m__label">Ông Bà</p>
+          <p class="report-m__names">{{ w.groomParents[0] }}<br />&amp;<br />{{ w.groomParents[1] }}</p>
+          <p class="report-m__home">{{ w.groomHome.split(', ')[0] }},<br />{{ w.groomHome.split(', ')[1] }}</p>
+        </div>
+        <div class="report-m__col">
+          <p class="report-m__label">Ông Bà</p>
+          <p class="report-m__names">{{ w.brideParents[0] }}<br />&amp;<br />{{ w.brideParents[1] }}</p>
+          <p class="report-m__home">{{ w.brideHome.split(', ')[0] }},<br />{{ w.brideHome.split(', ')[1] }}</p>
+        </div>
+      </div>
+      <p class="report-m__news" data-reveal="up">TRÂN TRỌNG BÁO TIN<br />LỄ THÀNH HÔN CỦA CON CHÚNG TÔI</p>
+      <div class="report-m__couple" data-reveal="fade" style="--d:.15s">
+        <p class="report-m__person"><span class="report-m__name">{{ w.groomFullName }}</span><span class="report-m__rank">{{ w.groomRank }}</span></p>
+        <p class="report-m__person"><span class="report-m__name">{{ w.brideFullName }}</span><span class="report-m__rank">{{ w.brideRank }}</span></p>
+      </div>
+      <p class="report-m__ceremony" data-reveal="up">{{ w.homeCeremony | uppercase }}<br />VÀO LÚC {{ w.homeTime | uppercase }}<span class="report-m__date">{{ w.dateSlash }}</span><span class="report-m__lunar">{{ w.lunarFull }}</span></p>
+    </div>''')
     if key == 'quote':
         # Điện thoại: slide ngang quá nhỏ để đọc, nên xếp tấm vé dọc với cùng ảnh & chữ
         out.append('    <div class="quote-m">')

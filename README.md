@@ -14,7 +14,7 @@ Thiệp mời cưới online viết bằng Angular, dựng lại y như thiệp 
 
 ## Sửa nội dung
 
-- Chữ trên thiệp (tên, ngày giờ, địa điểm, bố mẹ hai bên): `src/app/wedding.config.ts`
+- Chữ trên thiệp (tên, ngày giờ, địa điểm, bố mẹ hai bên, nơi ở, giờ lễ tại tư gia): `src/app/wedding.config.ts`
 - Ảnh: `public/assets/img/` (thay file cùng tên là xong)
 - Nhạc nền: `public/assets/audio/music.m4a`
 - Font (tách từ pptx): `public/assets/fonts/`
@@ -72,7 +72,7 @@ khách không thấy gì.
 | `open` | Bấm con dấu mở phong bì | |
 | `music` | Bấm nút đĩa bật/tắt nhạc | `on` / `off` |
 | `photo` | Bấm xem ảnh lớn | tên file ảnh |
-| `leave` | Rời tab / tắt màn hình | trang xa nhất đã xem, vd `8/9 album` |
+| `leave` | Rời tab / tắt màn hình | trang xa nhất đã xem, vd `9/10 album` |
 
 Mỗi dòng còn có: `guest` (tên khách trên link), `at` (giờ máy chủ), `secs` (số giây từ lúc mở trang),
 `session` (cùng một lần xem), `url`, `referrer`, `ua` (máy/trình duyệt), `lang`, `screen`.
