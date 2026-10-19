@@ -85,8 +85,8 @@ img.el {
 .t--wrap { white-space: normal; }
 
 .script { font-family: "Ballet", cursive; }
-/* tên cô dâu chú rể bằng Ballet: giãn chữ để nét hoa của chữ hoa không chồng lên nhau */
-.couple-script { word-spacing: .45em; }
+/* tên cô dâu chú rể ở trang báo tin: chữ viết tay nghiêng có nét hoa, dễ đọc hơn Ballet */
+.vibes { font-family: "Great Vibes", cursive; word-spacing: .15em; }
 .hand { font-family: "Dancing Script", cursive; }
 .italic { font-style: italic; }
 .bold { font-weight: 700; }
@@ -314,12 +314,12 @@ img.el {
   border-top: 1px solid rgba(255, 255, 255, .6);
 }
 .report-m__name {
-  font-family: "Ballet", cursive;
+  font-family: "Great Vibes", cursive;
   font-style: normal;
-  font-size: min(8vw, 36px);
-  line-height: 1.5;
-  letter-spacing: .03em;
-  word-spacing: .3em;
+  font-size: min(10.4vw, 44px);
+  line-height: 1.25;
+  letter-spacing: .01em;
+  word-spacing: .12em;
   white-space: nowrap;
 }
 .report-m__rank { font-size: 19px; line-height: 1.1; }
@@ -404,28 +404,9 @@ img.el {
 /* Phong bì hạ xuống khi nắp mở, rồi trang tự cuộn sang trang 2 */
 :host(.is-open) .slide--hero .env { translate: 0 30%; }
 
-.slide--couple {
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0;
-  container-type: inline-size;
-}
-.c-frame { width: 78%; margin-bottom: 4%; }
-/* Tên đầy đủ hai bên dài khác nhau -> xếp dọc "Ngọc Bảo / & / Cẩm Hương", mỗi dòng canh giữa */
-.c-name { width: 60%; }
-.c-name--groom { order: 1; }
-.c-name--bride { order: 3; }
-/* "&" cùng cỡ với tên: chữ = 22.8% bề rộng khối, khối = 60% hàng */
-.couple-amp {
-  order: 2;
-  flex-basis: 100%;
-  margin: -2% 0 -3%;
-  color: var(--cream);
-  font-size: 13.7cqw;
-  line-height: 14cqw;
-  text-align: center;
-}
+.c-frame { width: 78%; }
+/* Điện thoại: chỉ để khung ảnh, không hiện tên hai bên (máy tính vẫn có tên hai bên như slide) */
+.c-name { display: none; }
 
 /* Tên khách: khối trái tim rộng hơn slide cũ -> trên điện thoại phóng chữ lên cho dễ đọc */
 .invite__guest {
@@ -486,7 +467,7 @@ img.el {
     font-size: calc(var(--fs) * 1cqw);
     line-height: calc(var(--lh) * 1cqw);
   }
-  .couple-amp { display: none; }
+  .c-name { display: block; }
 }
 
 /* ---------- Bấm ảnh để xem lớn ---------- */

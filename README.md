@@ -17,7 +17,7 @@ Thiệp mời cưới online viết bằng Angular, dựng lại y như thiệp 
 - Chữ trên thiệp (tên, ngày giờ, địa điểm, bố mẹ hai bên, nơi ở, giờ lễ tại tư gia): `src/app/wedding.config.ts`
 - Ảnh: `public/assets/img/` (thay file cùng tên là xong)
 - Nhạc nền: `public/assets/audio/music.m4a`
-- Font (tách từ pptx): `public/assets/fonts/`
+- Font (tách từ pptx, riêng Great Vibes lấy từ Google Fonts cho tên ở trang báo tin): `public/assets/fonts/`
 - Vị trí các phần tử: `tools/gen-invite.py` chứa toạ độ lấy từ pptx và sinh ra
   `src/app/pages/invite/invite.html`. Sửa toạ độ thì chạy lại:
 

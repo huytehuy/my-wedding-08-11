@@ -181,12 +181,11 @@ slides.append(('report', 'Báo tin', [
         txt('bold', 7.5, 39.6, 85, ['TRÂN TRỌNG BÁO TIN', 'LỄ THÀNH HÔN CỦA CON CHÚNG TÔI'],
             fs=SZ(3498), lh=SZ(3253), ls=SZ(318), d=.2),
         raw('<span class="lines" data-reveal="fade" style="--d:.3s"></span>', 7.5, 51.7, 85, 18.3),
-        # Tên cô dâu chú rể: chữ Ballet nghiêng hoa văn như tiêu đề; giãn khoảng cách giữa các chữ
-        # (couple-script) để nét hoa của chữ hoa không dính vào nhau
-        txt('script couple-script', COL_L, 53.7, COL_W, ['{{ w.groomFullName }}'], fs=SZ(5000), lh=SZ(7500), ls=SZ(200), d=.35),
-        txt('script couple-script', COL_R, 53.7, COL_W, ['{{ w.brideFullName }}'], fs=SZ(5000), lh=SZ(7500), ls=SZ(200), d=.35),
-        txt('italic', COL_L, 63.5, COL_W, ['{{ w.groomRank }}'], fs=SZ(2800), lh=SZ(3100), ls=SZ(230), d=.45),
-        txt('italic', COL_R, 63.5, COL_W, ['{{ w.brideRank }}'], fs=SZ(2800), lh=SZ(3100), ls=SZ(230), d=.45),
+        # Tên cô dâu chú rể: Great Vibes (viết tay nghiêng có nét hoa, dễ đọc hơn Ballet)
+        txt('vibes', COL_L, 52.6, COL_W, ['{{ w.groomFullName }}'], fs=SZ(6300), lh=SZ(8200), ls=SZ(60), d=.35),
+        txt('vibes', COL_R, 52.6, COL_W, ['{{ w.brideFullName }}'], fs=SZ(6300), lh=SZ(8200), ls=SZ(60), d=.35),
+        txt('italic', COL_L, 62.9, COL_W, ['{{ w.groomRank }}'], fs=SZ(2800), lh=SZ(3100), ls=SZ(230), d=.45),
+        txt('italic', COL_R, 62.9, COL_W, ['{{ w.brideRank }}'], fs=SZ(2800), lh=SZ(3100), ls=SZ(230), d=.45),
         txt('bold', 7.5, 74.6, 85, ['{{ w.homeCeremony | uppercase }}', 'VÀO LÚC {{ w.homeTime | uppercase }}'],
             fs=SZ(3500), lh=SZ(3255), ls=SZ(318), d=.2),
         txt('bold', 7.5, 83.6, 85, ['{{ w.dateSlash }}'], fs=SZ(5400), lh=SZ(5022), ls=SZ(490), d=.3),
@@ -277,9 +276,6 @@ for i, (key, label, cmps) in enumerate(slides, 1):
         out.append(render_cmp(c))
     if key == 'hero':
         out.append('    <p class="hero-hint">Chạm vào con dấu để mở thiệp</p>')
-    if key == 'couple':
-        # Điện thoại: tên nằm dưới khung ảnh thành 1 hàng "Bảo & Hương"
-        out.append('    <span class="couple-amp hand" aria-hidden="true" data-reveal="up" style="--d:.3s">&amp;</span>')
     if key == 'report':
         # Điện thoại: bảng ngang co lại thì chữ quá nhỏ, nên xếp lại thành cột với cùng nội dung
         out.append('''    <div class="report-m">
