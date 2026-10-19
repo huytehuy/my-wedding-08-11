@@ -145,11 +145,14 @@ slides.append(('quote', 'Lời nhắn', [
 # Tên hai bên dùng hộp cùng bề rộng (33.47) và cách đều khung ảnh -> cùng cỡ chữ, cân hai bên
 NAME = dict(fs=SZ(11000), lh=SZ(15400))
 slides.append(('couple', 'Cô dâu chú rể', [
-    # Khung ảnh oval viền trắng: viền dày 196850/6062980 bề ngang khung, ảnh lót dưới viền
+    # Khung oval như slide, nhưng viền vàng mảnh 2 lớp + 2 ngôi sao (giống khung ngày ở trang bìa)
     cmp('c-frame', 36.83, 22.32, 26.33, 58.83, [
-        raw('<div class="oval-photo zoomable" (click)="view(' + "'photo-couple.webp'" + ')">'
+        raw('<span class="oval-ring oval-ring--outer"></span>'
+            '<span class="oval-ring oval-ring--inner"></span>'
+            '<div class="oval-photo zoomable" (click)="view(' + "'photo-couple.webp'" + ')">'
             '<img src="assets/img/photo-couple.webp" alt="{{ w.groomFull }} và {{ w.brideFull }}" /></div>'
-            '<span class="oval-ring"></span>',
+            '<img class="oval-star oval-star--a" src="assets/img/star.webp" alt="" />'
+            '<img class="oval-star oval-star--b" src="assets/img/star.webp" alt="" />',
             36.83, 22.32, 26.33, 58.83),
     ], reveal='fade'),
     cmp('c-name c-name--groom', 1.03, 38.82, 33.47, 18.40, [
@@ -178,8 +181,8 @@ slides.append(('report', 'Báo tin', [
         txt('bold', 7.5, 39.6, 85, ['TRÂN TRỌNG BÁO TIN', 'LỄ THÀNH HÔN CỦA CON CHÚNG TÔI'],
             fs=SZ(3498), lh=SZ(3253), ls=SZ(318), d=.2),
         raw('<span class="lines" data-reveal="fade" style="--d:.3s"></span>', 7.5, 51.7, 85, 18.3),
-        txt('hand bold', COL_L, 52.6, COL_W, ['{{ w.groomFullName }}'], fs=SZ(6700), lh=SZ(8300), ls=SZ(300), d=.35),
-        txt('hand bold', COL_R, 52.6, COL_W, ['{{ w.brideFullName }}'], fs=SZ(6700), lh=SZ(8300), ls=SZ(300), d=.35),
+        txt('hand bold', COL_L, 53.4, COL_W, ['{{ w.groomFullName }}'], fs=SZ(5800), lh=SZ(7400), ls=SZ(250), d=.35),
+        txt('hand bold', COL_R, 53.4, COL_W, ['{{ w.brideFullName }}'], fs=SZ(5800), lh=SZ(7400), ls=SZ(250), d=.35),
         txt('hand bold', COL_L, 63.9, COL_W, ['{{ w.groomRank }}'], fs=SZ(2827), lh=SZ(3100), ls=SZ(100), d=.45),
         txt('hand bold', COL_R, 63.9, COL_W, ['{{ w.brideRank }}'], fs=SZ(2827), lh=SZ(3100), ls=SZ(100), d=.45),
         txt('bold', 7.5, 78.6, 85, ['{{ w.homeCeremony | uppercase }}', 'VÀO LÚC {{ w.homeTime | uppercase }}'],
@@ -251,6 +254,8 @@ slides.append(('thanks', 'Cảm ơn', [
     cmp('c-thanks', 11.60, 35.57, 76.79, 49.12, [
         txt('script', 12.70, 35.57, 74.60, ['Hân hạnh được đón tiếp'], reveal='write',
             fs=SZ(10682), lh=SZ(10575), ls=SZ(972)),
+        # sticker đôi nhẫn vàng lấp khoảng trống giữa tiêu đề và lời cảm ơn
+        img('', 'rings.svg', 43, 50.6, 14, 12.44, d=.15),
         txt('', 11.60, 64.9, 76.79, ['Sự hiện diện của quý khách là món quà vô giá', 'đối với gia đình chúng tôi!'],
             d=.2, **THANKS),
         txt('', 26.75, 78.90, 46.51, ['CHÂN THÀNH CẢM ƠN!'], fs=SZ(4632), lh=SZ(4308), ls=SZ(421), d=.3),
